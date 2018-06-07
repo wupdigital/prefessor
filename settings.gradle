@@ -1,0 +1,3 @@
+rootProject.name = 'prefessor'
+
+include 'prefessor-common', 'prefessor-jvm', 'prefessor-js'
