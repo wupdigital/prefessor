@@ -1,1 +1,19 @@
+buildscript {
+    ext.kotlin_version = '1.2.41'
 
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    group 'digital.wup.prefessor'
+    version '0.1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+}
