@@ -1,0 +1,16 @@
+configure(subprojects) {
+
+    apply plugin: 'io.gitlab.arturbosch.detekt'
+
+    detekt {
+        version = project.detekt_version
+        defaultProfile {
+            input = file("src/main/kotlin")
+            filters = ".*/resources/.*,.*/build/.*"
+        }
+    }
+
+    afterEvaluate {
+        check.dependsOn detektCheck
+    }
+}

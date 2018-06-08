@@ -1,14 +1,21 @@
 buildscript {
-    ext.kotlin_version = '1.2.41'
-    ext.android_gradle_build_tools_version = '3.1.0'
+    ext {
+        kotlin_version = '1.2.41'
+        android_gradle_build_tools_version = '3.1.0'
+        detekt_version = '1.0.0.RC7-2'
+    }
 
     repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
         google()
         jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$android_gradle_build_tools_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "gradle.plugin.io.gitlab.arturbosch:detekt-gradle-plugin:$detekt_version"
     }
 }
 
@@ -23,37 +30,5 @@ allprojects {
     }
 }
 
-configure(subprojects) {
-
-    configurations {
-        ktlint
-    }
-
-    dependencies {
-        ktlint 'com.github.shyiko:ktlint:0.23.1'
-    }
-
-    task ktlint(type: JavaExec, group: LifecycleBasePlugin.VERIFICATION_GROUP) {
-        inputs.dir('src')
-        outputs.dir('src')
-
-        description = "Check Kotlin code style."
-        classpath = configurations.ktlint
-        main = 'com.github.shyiko.ktlint.Main'
-        args '--android', 'src/**/*.kt'
-    }
-
-    task ktFormat(type: JavaExec, group: 'formatting') {
-        inputs.dir('src')
-        outputs.dir('src')
-
-        description = 'Fix Kotlin code style deviations.'
-        classpath = configurations.ktlint
-        main = 'com.github.shyiko.ktlint.Main'
-        args '--android', '-F', 'src/**/*.kt'
-    }
-
-    afterEvaluate {
-        check.dependsOn ktlint
-    }
-}
+apply from: 'gradle/ktlint.gradle'
+apply from: 'gradle/detekt.gradle'
