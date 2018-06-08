@@ -1,1 +1,11 @@
-<manifest package="digital.wup.prefessor"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="digital.wup.prefessor">
+
+    <application>
+        <provider
+            android:name="digital.wup.prefessor.ContextContentProvider"
+            android:authorities="digital.wup.prefessor.ContextContentProvider"
+            android:exported="false" />
+    </application>
+
+</manifest>
