@@ -36,9 +36,9 @@ abstract class AbstractPrefessorTest {
         assertFalse(prefessor.getBoolean("test_not_save_true", false))
     }
 
-    @JsName("putBoolean_empty_returnsWithDefaultValue")
+    @JsName("putBoolean_afterClear_returnsWithDefaultValue")
     @Test
-    fun putBoolean_empty_returnsWithDefaultValue() {
+    fun putBoolean_afterClear_returnsWithDefaultValue() {
         // when
         prefessor.edit().clear()
         prefessor.edit().apply()
