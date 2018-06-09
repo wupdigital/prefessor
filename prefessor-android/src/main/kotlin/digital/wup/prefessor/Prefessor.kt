@@ -60,7 +60,7 @@ actual class Prefessor private constructor(private val sharedPreferences: Shared
      * @return Returns the preference value if it exists, or defValue.
      */
     actual fun getFloat(key: String, defValue: Float): Float {
-        TODO("not implemented")
+        return sharedPreferences.getFloat(key, defValue)
     }
 
     /**
@@ -110,7 +110,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
      * @param value The new value for the preference.
      */
     actual fun putFloat(key: String, value: Float) {
-        TODO("not implemented")
+        editor.putFloat(key, value)
     }
 
     /**
