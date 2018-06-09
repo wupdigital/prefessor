@@ -1,12 +1,21 @@
 package digital.wup.prefessor.utils
 
 import digital.wup.prefessor.Prefessor
-import digital.wup.prefessor.mock.localStorage
+
+@JsModule("mock-local-storage")
+@JsNonModule()
+/*
+ * TODO I don't know what is the correct type of localStorage
+ * I have to learn more about Kotlin/Js interop
+ */
+external val localStorage: () -> Unit
 
 actual sealed class PrefessorProvider {
     actual companion object {
         private val prefessor by lazy {
-            Prefessor.create(localStorage)
+            // Without this line, mock-local-storage do not replace the browser.localStorage
+            localStorage
+            Prefessor.create()
         }
 
         actual fun get(): Prefessor {
