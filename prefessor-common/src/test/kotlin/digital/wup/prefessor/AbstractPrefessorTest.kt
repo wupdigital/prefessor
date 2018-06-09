@@ -1,6 +1,7 @@
 package digital.wup.prefessor
 
 import digital.wup.prefessor.test.JsName
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import kotlin.test.BeforeTest
@@ -10,61 +11,98 @@ abstract class AbstractPrefessorTest {
 
     protected lateinit var prefessor: Prefessor
 
+    companion object {
+        private const val KEY = "test_key"
+    }
+
     @BeforeTest()
     open fun setup() {
         prefessor = Prefessor.create()
+        prefessor.edit().clear()
+        prefessor.edit().apply()
+    }
+
+    @JsName("putBoolean_afterClear_returnsWithDefaultValue")
+    @Test
+    fun getBoolean_afterClear_returnsWithDefaultValue() {
+        // when
+        prefessor.edit().clear()
+        prefessor.edit().apply()
+
+        // then
+        assertTrue(prefessor.getBoolean(KEY, true))
     }
 
     @JsName("putBoolean_putTrue_hasBeenSaved")
     @Test
     fun putBoolean_putTrue_hasBeenSaved() {
         // when
-        prefessor.edit().putBoolean("test_save_true", true)
+        prefessor.edit().putBoolean(KEY, true)
         prefessor.edit().apply()
 
         // then
-        assertTrue(prefessor.getBoolean("test_save_true", false))
+        assertTrue(prefessor.getBoolean(KEY, false))
     }
 
     @JsName("putBoolean_putTrue_doNotSaveWithoutApply")
     @Test
     fun putBoolean_putTrue_doNotSaveWithoutApply() {
         // when
-        prefessor.edit().putBoolean("test_not_save_true", true)
+        prefessor.edit().putBoolean(KEY, true)
 
         // then
-        assertFalse(prefessor.getBoolean("test_not_save_true", false))
+        assertFalse(prefessor.getBoolean(KEY, false))
     }
 
-    @JsName("putBoolean_afterClear_returnsWithDefaultValue")
+    @JsName("putFloat_afterClear_returnsWithDefaultValue")
     @Test
-    fun putBoolean_afterClear_returnsWithDefaultValue() {
+    fun getFloat_afterClear_returnsWithDefaultValue() {
         // when
         prefessor.edit().clear()
         prefessor.edit().apply()
+        // then
+        assertEquals(1.0f, prefessor.getFloat(KEY, 1.0f))
+    }
+
+    @JsName("putFloat_saveValue_hasBeenSaved")
+    @Test
+    fun putFloat_saveValue_hasBeenSaved() {
+        // when
+        prefessor.edit().putFloat(KEY, 30.0f)
+        prefessor.edit().apply()
 
         // then
-        assertTrue(prefessor.getBoolean("test_retrive_default", true))
+        assertEquals(30.0f, prefessor.getFloat(KEY, 10.0f))
+    }
+
+    @JsName("putFloat_putTrue_doNotSaveWithoutApply")
+    @Test
+    fun putFloat_saveValue_doNotSaveWithoutApply() {
+        // when
+        prefessor.edit().putFloat(KEY, 7.0f)
+
+        // then
+        assertEquals(1.0f, prefessor.getFloat(KEY, 1.0f))
     }
 
     @Test
     fun remove_addAndRemoveValue_success() {
         // when
-        prefessor.edit().putBoolean("add_and_remove", true)
+        prefessor.edit().putBoolean(KEY, true)
         prefessor.edit().apply()
 
         // and
-        prefessor.edit().remove("add_and_remove")
+        prefessor.edit().remove(KEY)
         prefessor.edit().apply()
 
         // than
-        assertFalse(prefessor.getBoolean("add_and_remove", false))
+        assertFalse(prefessor.getBoolean(KEY, false))
     }
 
     @Test
     fun clean_addAndClearValue_success() {
         // when
-        prefessor.edit().putBoolean("add_and_clear", true)
+        prefessor.edit().putBoolean(KEY, true)
         prefessor.edit().apply()
 
         // and
@@ -72,6 +110,6 @@ abstract class AbstractPrefessorTest {
         prefessor.edit().apply()
 
         // than
-        assertFalse(prefessor.getBoolean("add_and_clear", false))
+        assertFalse(prefessor.getBoolean(KEY, false))
     }
 }
