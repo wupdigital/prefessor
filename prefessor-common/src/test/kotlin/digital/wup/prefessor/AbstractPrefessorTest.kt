@@ -30,6 +30,7 @@ abstract class AbstractPrefessorTest {
         assertFalse(prefessor.getBoolean("test", false))
     }
 
+    @Test
     fun putBoolean_empty_returnsWithDefaultValue() {
 
         prefessor.getBoolean("test", true)
