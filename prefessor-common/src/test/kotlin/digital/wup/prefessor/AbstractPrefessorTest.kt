@@ -60,4 +60,18 @@ abstract class AbstractPrefessorTest {
         // than
         assertFalse(prefessor.getBoolean("add_and_remove", false))
     }
+
+    @Test
+    fun clean_addAndClearValue_success() {
+        // when
+        prefessor.edit().putBoolean("add_and_clear", true)
+        prefessor.edit().apply()
+
+        // and
+        prefessor.edit().clear()
+        prefessor.edit().apply()
+
+        // than
+        assertFalse(prefessor.getBoolean("add_and_clear", false))
+    }
 }
