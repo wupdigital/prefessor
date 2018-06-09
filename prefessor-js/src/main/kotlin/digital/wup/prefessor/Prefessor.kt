@@ -1,7 +1,7 @@
 package digital.wup.prefessor
 
 import kotlin.browser.localStorage
-import kotlin.collections.listOf
+import kotlin.collections.mutableListOf
 import org.w3c.dom.Storage
 
 actual class Prefessor private constructor(private val storage: Storage = localStorage) {
@@ -44,7 +44,7 @@ actual class Prefessor private constructor(private val storage: Storage = localS
      */
     actual fun getBoolean(key: String, defValue: Boolean): Boolean {
         return storage.getItem(key)?.let {
-            it as Boolean
+            it.toBoolean()
         } ?: run {
             defValue
         }
@@ -58,7 +58,7 @@ actual class Prefessor private constructor(private val storage: Storage = localS
      */
     actual fun getFloat(key: String, defValue: Float): Float {
         return storage.getItem(key)?.let {
-            it as Float
+            it.toFloat()
         } ?: run {
             defValue
         }
@@ -72,7 +72,7 @@ actual class Prefessor private constructor(private val storage: Storage = localS
      */
     actual fun getInt(key: String, defValue: Int): Int {
         return storage.getItem(key)?.let {
-            it as Int
+            it.toInt()
         } ?: run {
             defValue
         }
@@ -86,7 +86,7 @@ actual class Prefessor private constructor(private val storage: Storage = localS
      */
     actual fun getLong(key: String, defValue: Long): Long {
         return storage.getItem(key)?.let {
-            it as Long
+            it.toLong()
         } ?: run {
             defValue
         }
@@ -104,7 +104,7 @@ actual class Prefessor private constructor(private val storage: Storage = localS
 
 actual class PrefessorEditor internal constructor(private val storage: Storage) {
 
-    private val pending = listOf<() -> Unit>()
+    private val pending = mutableListOf<() -> Unit>()
 
     /**
      * Set a boolean value in the preferences editor, to be written back once {@link #apply()) are called.
@@ -112,7 +112,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param value The new value for the preference.
      */
     actual fun putBoolean(key: String, value: Boolean) {
-        storage.setItem(key, value.toString())
+        pending.add({
+            storage.setItem(key, value.toString())
+        })
     }
 
     /**
@@ -121,7 +123,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param value The new value for the preference.
      */
     actual fun putFloat(key: String, value: Float) {
-        storage.setItem(key, value.toString())
+        pending.add({
+            storage.setItem(key, value.toString())
+        })
     }
 
     /**
@@ -130,7 +134,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param value The new value for the preference.
      */
     actual fun putInt(key: String, value: Int) {
-        storage.setItem(key, value.toString())
+        pending.add({
+            storage.setItem(key, value.toString())
+        })
     }
 
     /**
@@ -139,7 +145,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param value The new value for the preference.
      */
     actual fun putLong(key: String, value: Long) {
-        storage.setItem(key, value.toString())
+        pending.add({
+            storage.setItem(key, value.toString())
+        })
     }
 
     /**
@@ -148,7 +156,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param value The new value for the preference.
      */
     actual fun putString(key: String, value: String) {
-        storage.setItem(key, value)
+        pending.add({
+            storage.setItem(key, value)
+        })
     }
 
     /**
@@ -157,7 +167,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param key The name of the preference to remove.
      */
     actual fun remove(key: String) {
-        storage.removeItem(key)
+        pending.add({
+            storage.removeItem(key)
+        })
     }
 
     /**
@@ -167,9 +179,14 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * regardless of whether you called clear before or after put methods on this editor.
      */
     actual fun clear() {
-        storage.clear()
+        pending.add({
+            storage.clear()
+        })
     }
 
     actual fun apply() {
+        pending.forEach {
+            it()
+        }
     }
 }

@@ -41,7 +41,7 @@ task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModu
     args = [compileTestKotlin2Js.outputFile]
 }
 
-// test.dependsOn runMocha
+test.dependsOn runMocha
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'
