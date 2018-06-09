@@ -1,0 +1,29 @@
+apply plugin: 'konan'
+
+konanArtifacts {
+
+    framework('Prefessor', targets: ['iphone', 'iphone_sim']) {
+        srcDir 'src/main/kotlin'
+        enableMultiplatform true
+        commonSourceSets 'main'
+    }
+
+    program('PrefessorTest') {
+        srcDir 'src/main/kotlin'
+        srcDir 'src/test/kotlin'
+        commonSourceSets 'main', 'test'
+        extraOpts '-tr'
+
+        enableMultiplatform true
+    }
+}
+
+dependencies {
+    expectedBy project(":prefessor-common")
+}
+
+task test(dependsOn: run) {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+}
+
+// check.dependsOn test

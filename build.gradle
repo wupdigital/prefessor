@@ -12,11 +12,15 @@ buildscript {
         }
         google()
         jcenter()
+        maven {
+            url  "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
+        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$android_gradle_build_tools_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "gradle.plugin.io.gitlab.arturbosch:detekt-gradle-plugin:$detekt_version"
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:0.7.1"
         classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
     }
 }
