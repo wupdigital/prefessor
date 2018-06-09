@@ -123,7 +123,8 @@ actual class PrefessorEditor {
     }
 
     /**
-     * Mark in the editor that a preference value should be removed, which will be done in the actual preferences once {@link #commit()} is called.
+     * Mark in the editor that a preference value should be removed,
+     * which will be done in the actual preferences once {@link #commit()} is called.
      * @param key The name of the preference to remove.
      */
     actual fun remove(key: String) {
@@ -131,8 +132,10 @@ actual class PrefessorEditor {
     }
 
     /**
-     * Mark in the editor to remove all values from the preferences. Once commit is called, the only remaining preferences will be any that you have defined in this editor.
-     * Note that when committing back to the preferences, the clear is done first, regardless of whether you called clear before or after put methods on this editor.
+     * Mark in the editor to remove all values from the preferences. Once commit is called,
+     * the only remaining preferences will be any that you have defined in this editor.
+     * Note that when committing back to the preferences, the clear is done first,
+     * regardless of whether you called clear before or after put methods on this editor.
      */
     actual fun clear() {
         TODO("not implemented")
