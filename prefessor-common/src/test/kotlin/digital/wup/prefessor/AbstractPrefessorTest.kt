@@ -15,18 +15,23 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun test_putBoolean_putTrue_hasBeenSaved() {
+    fun putBoolean_putTrue_hasBeenSaved() {
 
         prefessor.edit().putBoolean("test", true)
         prefessor.edit().apply()
 
-        assertTrue(prefessor.getBoolean("test"))
+        assertTrue(prefessor.getBoolean("test", false))
     }
 
     @Test
-    fun test_putBoolean_putTrue_doNotSaveWithoutApply() {
+    fun putBoolean_putTrue_doNotSaveWithoutApply() {
         prefessor.edit().putBoolean("test", true)
 
-        assertFalse(prefessor.getBoolean("test"))
+        assertFalse(prefessor.getBoolean("test", false))
+    }
+
+    fun putBoolean_empty_returnsWithDefaultValue() {
+
+        prefessor.getBoolean("test", true)
     }
 }
