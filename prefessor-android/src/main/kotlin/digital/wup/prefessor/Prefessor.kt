@@ -145,7 +145,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
      * @param key The name of the preference to remove.
      */
     actual fun remove(key: String) {
-        TODO("not implemented")
+        editor.remove(key)
     }
 
     /**
@@ -153,7 +153,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
      * Note that when committing back to the preferences, the clear is done first, regardless of whether you called clear before or after put methods on this editor.
      */
     actual fun clear() {
-        TODO("not implemented")
+        editor.clear()
     }
 
     actual fun apply() {
