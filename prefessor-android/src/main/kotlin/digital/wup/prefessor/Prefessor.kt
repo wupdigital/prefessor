@@ -1,5 +1,6 @@
 package digital.wup.prefessor
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 
@@ -13,14 +14,17 @@ actual class Prefessor private constructor(private val sharedPreferences: Shared
 
     actual companion object {
 
+        @JvmStatic
         actual fun create(): Prefessor {
             val prefs = PreferenceManager.getDefaultSharedPreferences(ContextProvider.get())
 
             return Prefessor(prefs)
         }
 
+        @JvmStatic
         actual fun create(space: String): Prefessor {
-            val prefs = PreferenceManager.getDefaultSharedPreferences(ContextProvider.get())
+            val context = ContextProvider.get()
+            val prefs = context.getSharedPreferences(space, Context.MODE_PRIVATE)
 
             return Prefessor(prefs)
         }
