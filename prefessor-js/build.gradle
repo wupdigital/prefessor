@@ -7,12 +7,17 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 
-[compileKotlin2Js, compileTestKotlin2Js]*.configure {
-    kotlinOptions {
-        sourceMap = true
-        sourceMapEmbedSources = "always"
-        moduleKind = 'commonjs'
+[compileKotlin2Js, compileTestKotlin2Js].each {
+    it.configure {
+        kotlinOptions {
+            metaInfo = true
+            sourceMap = true
+            sourceMapEmbedSources = "always"
+            moduleKind = 'commonjs'
+        }
     }
+
+    it.dependsOn npmInstall
 }
 
 task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
@@ -30,11 +35,8 @@ node {
     download = true
 }
 
-task installMocha(type: NpmTask) {
-    args = ['install', 'mocha']
-}
-
-task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModules, installMocha]) {
+task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModules]) {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
     script = file('node_modules/mocha/bin/mocha')
     args = [compileTestKotlin2Js.outputFile]
 }
