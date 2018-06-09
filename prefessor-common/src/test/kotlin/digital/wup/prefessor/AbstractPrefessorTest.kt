@@ -1,5 +1,6 @@
 package digital.wup.prefessor
 
+import digital.wup.prefessor.test.JsName
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import kotlin.test.BeforeTest
@@ -14,6 +15,7 @@ abstract class AbstractPrefessorTest {
         prefessor = Prefessor.create()
     }
 
+    @JsName("putBoolean_putTrue_hasBeenSaved")
     @Test
     fun putBoolean_putTrue_hasBeenSaved() {
 
@@ -23,6 +25,7 @@ abstract class AbstractPrefessorTest {
         assertTrue(prefessor.getBoolean("test", false))
     }
 
+    @JsName("putBoolean_putTrue_doNotSaveWithoutApply")
     @Test
     fun putBoolean_putTrue_doNotSaveWithoutApply() {
         prefessor.edit().putBoolean("test", true)
@@ -30,6 +33,7 @@ abstract class AbstractPrefessorTest {
         assertFalse(prefessor.getBoolean("test", false))
     }
 
+    @JsName("putBoolean_empty_returnsWithDefaultValue")
     @Test
     fun putBoolean_empty_returnsWithDefaultValue() {
 

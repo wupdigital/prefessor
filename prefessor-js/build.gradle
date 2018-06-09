@@ -1,7 +1,51 @@
 apply plugin: 'kotlin-platform-js'
+apply plugin: 'com.moowork.node'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     expectedBy project(":prefessor-common")
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+}
+
+[compileKotlin2Js, compileTestKotlin2Js]*.configure {
+    kotlinOptions {
+        sourceMap = true
+        sourceMapEmbedSources = "always"
+        moduleKind = 'commonjs'
+    }
+}
+
+task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
+    from compileKotlin2Js.destinationDir
+
+    configurations.testCompile.each {
+        from zipTree(it.absolutePath).matching { include '*.js' }
+    }
+
+    into "${buildDir}/node_modules"
+}
+
+node {
+    version = node_version
+    download = true
+}
+
+task installMocha(type: NpmTask) {
+    args = ['install', 'mocha']
+}
+
+task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModules, installMocha]) {
+    script = file('node_modules/mocha/bin/mocha')
+    args = [compileTestKotlin2Js.outputFile]
+}
+
+// test.dependsOn runMocha
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.kotlin
+}
+
+artifacts {
+    archives sourcesJar
 }

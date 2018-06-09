@@ -3,6 +3,7 @@ buildscript {
         kotlin_version = '1.2.41'
         android_gradle_build_tools_version = '3.1.0'
         detekt_version = '1.0.0.RC7-2'
+        node_version = '8.9.4'
     }
 
     repositories {
@@ -16,6 +17,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:$android_gradle_build_tools_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "gradle.plugin.io.gitlab.arturbosch:detekt-gradle-plugin:$detekt_version"
+        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
     }
 }
 
