@@ -1,14 +1,19 @@
 package digital.wup.prefessor
 
-actual class Prefessor {
+import kotlin.browser.localStorage
+import org.w3c.dom.Storage
+actual class Prefessor private constructor(private val storage: Storage = localStorage) {
 
     actual companion object {
         actual fun create(): Prefessor {
             return Prefessor()
         }
 
-        actual fun create(space: String): Prefessor {
-            return Prefessor()
+        /**
+         * Only for testing
+         */
+        internal fun create(storage: Storage): Prefessor {
+            return Prefessor(storage)
         }
     }
 

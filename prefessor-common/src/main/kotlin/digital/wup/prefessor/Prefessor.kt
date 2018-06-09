@@ -4,8 +4,6 @@ expect class Prefessor {
 
     companion object {
         fun create(): Prefessor
-
-        fun create(space: String): Prefessor
     }
 
     /**

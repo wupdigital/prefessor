@@ -16,16 +16,11 @@ actual class Prefessor private constructor(private val sharedPreferences: Shared
 
         @JvmStatic
         actual fun create(): Prefessor {
-            val prefs = PreferenceManager.getDefaultSharedPreferences(ContextProvider.get())
-
-            return Prefessor(prefs)
+            return create(ContextProvider.get())
         }
 
-        @JvmStatic
-        actual fun create(space: String): Prefessor {
-            val context = ContextProvider.get()
-            val prefs = context.getSharedPreferences(space, Context.MODE_PRIVATE)
-
+        internal fun create(context: Context): Prefessor {
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
             return Prefessor(prefs)
         }
     }
