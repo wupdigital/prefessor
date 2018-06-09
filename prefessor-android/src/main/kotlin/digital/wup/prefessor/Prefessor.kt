@@ -70,7 +70,7 @@ actual class Prefessor private constructor(private val sharedPreferences: Shared
      * @return Returns the preference value if it exists, or defValue.
      */
     actual fun getInt(key: String, defValue: Int): Int {
-        TODO("not implemented")
+        return sharedPreferences.getInt(key, defValue)
     }
 
     /**
@@ -80,7 +80,7 @@ actual class Prefessor private constructor(private val sharedPreferences: Shared
      * @return Returns the preference value if it exists, or defValue.
      */
     actual fun getLong(key: String, defValue: Long): Long {
-        TODO("not implemented")
+        return sharedPreferences.getLong(key, defValue)
     }
 
     /**
@@ -89,7 +89,7 @@ actual class Prefessor private constructor(private val sharedPreferences: Shared
      * @param key The name of the preference to retrieve.
      */
     actual fun getString(key: String, defValue: String): String {
-        TODO("not implemented")
+        return sharedPreferences.getString(key, defValue)
     }
 }
 
@@ -119,7 +119,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
      * @param value The new value for the preference.
      */
     actual fun putInt(key: String, value: Int) {
-        TODO("not implemented")
+        editor.putInt(key, value)
     }
 
     /**
@@ -128,7 +128,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
      * @param value The new value for the preference.
      */
     actual fun putLong(key: String, value: Long) {
-        TODO("not implemented")
+        editor.putLong(key, value)
     }
 
     /**
@@ -137,7 +137,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
      * @param value The new value for the preference.
      */
     actual fun putString(key: String, value: String) {
-        TODO("not implemented")
+        editor.putString(key, value)
     }
 
     /**
