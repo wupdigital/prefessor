@@ -85,6 +85,99 @@ abstract class AbstractPrefessorTest {
         assertEquals(1.0f, prefessor.getFloat(KEY, 1.0f))
     }
 
+    @JsName("putInt_afterClear_returnsWithDefaultValue")
+    @Test
+    fun getInt_afterClear_returnsWithDefaultValue() {
+        // when
+        prefessor.edit().clear()
+        prefessor.edit().apply()
+        // then
+        assertEquals(1, prefessor.getInt(KEY, 1))
+    }
+
+    @JsName("putInt_saveValue_hasBeenSaved")
+    @Test
+    fun putInt_saveValue_hasBeenSaved() {
+        // when
+        prefessor.edit().putInt(KEY, 30)
+        prefessor.edit().apply()
+
+        // then
+        assertEquals(30, prefessor.getInt(KEY, 10))
+    }
+
+    @JsName("putInt_putTrue_doNotSaveWithoutApply")
+    @Test
+    fun putInt_saveValue_doNotSaveWithoutApply() {
+        // when
+        prefessor.edit().putInt(KEY, 7)
+
+        // then
+        assertEquals(1, prefessor.getInt(KEY, 1))
+    }
+
+    @JsName("putLong_afterClear_returnsWithDefaultValue")
+    @Test
+    fun getLong_afterClear_returnsWithDefaultValue() {
+        // when
+        prefessor.edit().clear()
+        prefessor.edit().apply()
+        // then
+        assertEquals(1L, prefessor.getLong(KEY, 1L))
+    }
+
+    @JsName("putLong_saveValue_hasBeenSaved")
+    @Test
+    fun putLong_saveValue_hasBeenSaved() {
+        // when
+        prefessor.edit().putLong(KEY, 30L)
+        prefessor.edit().apply()
+
+        // then
+        assertEquals(30L, prefessor.getLong(KEY, 10L))
+    }
+
+    @JsName("putLong_putTrue_doNotSaveWithoutApply")
+    @Test
+    fun putLong_saveValue_doNotSaveWithoutApply() {
+        // when
+        prefessor.edit().putLong(KEY, 7L)
+
+        // then
+        assertEquals(1L, prefessor.getLong(KEY, 1L))
+    }
+
+    @JsName("putString_afterClear_returnsWithDefaultValue")
+    @Test
+    fun getString_afterClear_returnsWithDefaultValue() {
+        // when
+        prefessor.edit().clear()
+        prefessor.edit().apply()
+        // then
+        assertEquals("default", prefessor.getString(KEY, "default"))
+    }
+
+    @JsName("putString_saveValue_hasBeenSaved")
+    @Test
+    fun putString_saveValue_hasBeenSaved() {
+        // when
+        prefessor.edit().putString(KEY, "test_value")
+        prefessor.edit().apply()
+
+        // then
+        assertEquals("test_value", prefessor.getString(KEY, "default"))
+    }
+
+    @JsName("putString_putTrue_doNotSaveWithoutApply")
+    @Test
+    fun putString_saveValue_doNotSaveWithoutApply() {
+        // when
+        prefessor.edit().putString(KEY, "test_value")
+
+        // then
+        assertEquals("default", prefessor.getString(KEY, "default"))
+    }
+
     @Test
     fun remove_addAndRemoveValue_success() {
         // when
