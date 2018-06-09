@@ -18,25 +18,46 @@ abstract class AbstractPrefessorTest {
     @JsName("putBoolean_putTrue_hasBeenSaved")
     @Test
     fun putBoolean_putTrue_hasBeenSaved() {
-
-        prefessor.edit().putBoolean("test", true)
+        // when
+        prefessor.edit().putBoolean("test_save_true", true)
         prefessor.edit().apply()
 
-        assertTrue(prefessor.getBoolean("test", false))
+        // then
+        assertTrue(prefessor.getBoolean("test_save_true", false))
     }
 
     @JsName("putBoolean_putTrue_doNotSaveWithoutApply")
     @Test
     fun putBoolean_putTrue_doNotSaveWithoutApply() {
-        prefessor.edit().putBoolean("test", true)
+        // when
+        prefessor.edit().putBoolean("test_not_save_true", true)
 
-        assertFalse(prefessor.getBoolean("test", false))
+        // then
+        assertFalse(prefessor.getBoolean("test_not_save_true", false))
     }
 
     @JsName("putBoolean_empty_returnsWithDefaultValue")
     @Test
     fun putBoolean_empty_returnsWithDefaultValue() {
+        // when
+        prefessor.edit().clear()
+        prefessor.edit().apply()
 
-        prefessor.getBoolean("test", true)
+        // then
+        assertTrue(prefessor.getBoolean("test_retrive_default", true))
+    }
+
+    @Test
+    fun remove_addAndRemoveValue_success() {
+        // when
+        prefessor.edit().putBoolean("add_and_remove", true)
+        prefessor.edit().apply()
+
+        // and
+        prefessor.edit().remove("add_and_remove")
+        prefessor.edit().apply()
+
+        // than
+        assertFalse(prefessor.getBoolean("add_and_remove", false))
     }
 }
