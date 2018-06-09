@@ -58,7 +58,41 @@ expect class Prefessor {
 }
 
 expect class PrefessorEditor {
+
+    /**
+     * Set a boolean value in the preferences editor, to be written back once {@link #apply()) are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
     fun putBoolean(key: String, value: Boolean)
+
+    /**
+     * Set a float value in the preferences editor, to be written back once {@link #apply()) are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    fun putFloat(key: String, value: Float)
+
+    /**
+     * Set an int value in the preferences editor, to be written back once {@link #apply()) are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    fun putInt(key: String, value: Int)
+
+    /**
+     * Set a long value in the preferences editor, to be written back once {@link #apply()) are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    fun putLong(key: String, value: Long)
+
+    /**
+     * Set a string value in the preferences editor, to be written back once {@link #apply()) are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    fun putString(key: String, value: String)
 
     fun apply()
 }

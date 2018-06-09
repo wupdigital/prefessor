@@ -95,11 +95,52 @@ actual class Prefessor private constructor(private val sharedPreferences: Shared
 
 actual class PrefessorEditor internal constructor(private val editor: SharedPreferences.Editor) {
 
+    actual fun apply() {
+        editor.apply()
+    }
+
+    /**
+     * Set a boolean value in the preferences editor, to be written back once {@link #apply()) are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
     actual fun putBoolean(key: String, value: Boolean) {
         editor.putBoolean(key, value)
     }
 
-    actual fun apply() {
-        editor.apply()
+    /**
+     * Set a float value in the preferences editor, to be written back once {@link #apply()) are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    actual fun putFloat(key: String, value: Float) {
+        TODO("not implemented")
+    }
+
+    /**
+     * Set an int value in the preferences editor, to be written back once {@link #apply()) are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    actual fun putInt(key: String, value: Int) {
+        TODO("not implemented")
+    }
+
+    /**
+     * Set a long value in the preferences editor, to be written back once {@link #apply()) are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    actual fun putLong(key: String, value: Long) {
+        TODO("not implemented")
+    }
+
+    /**
+     * Set a string value in the preferences editor, to be written back once {@link #apply()) are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    actual fun putString(key: String, value: String) {
+        TODO("not implemented")
     }
 }
