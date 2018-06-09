@@ -22,4 +22,14 @@ dependencies {
     testImplementation "junit:junit:4.12"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+
+tasks.matching { it instanceof Test }.all {
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        showStandardStreams = true
+        showExceptions true
+        exceptionFormat 'full'
+        showCauses true
+        showStackTraces true
+    }
 }
