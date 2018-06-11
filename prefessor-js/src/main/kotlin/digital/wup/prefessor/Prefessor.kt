@@ -105,9 +105,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param value The new value for the preference.
      */
     actual fun putBoolean(key: String, value: Boolean) {
-        pending.add({
+        pending.add {
             storage.setItem(key, value.toString())
-        })
+        }
     }
 
     /**
@@ -116,9 +116,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param value The new value for the preference.
      */
     actual fun putFloat(key: String, value: Float) {
-        pending.add({
+        pending.add {
             storage.setItem(key, value.toString())
-        })
+        }
     }
 
     /**
@@ -127,9 +127,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param value The new value for the preference.
      */
     actual fun putInt(key: String, value: Int) {
-        pending.add({
+        pending.add {
             storage.setItem(key, value.toString())
-        })
+        }
     }
 
     /**
@@ -138,9 +138,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param value The new value for the preference.
      */
     actual fun putLong(key: String, value: Long) {
-        pending.add({
+        pending.add {
             storage.setItem(key, value.toString())
-        })
+        }
     }
 
     /**
@@ -149,9 +149,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param value The new value for the preference.
      */
     actual fun putString(key: String, value: String) {
-        pending.add({
+        pending.add {
             storage.setItem(key, value)
-        })
+        }
     }
 
     /**
@@ -160,9 +160,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param key The name of the preference to remove.
      */
     actual fun remove(key: String) {
-        pending.add({
+        pending.add {
             storage.removeItem(key)
-        })
+        }
     }
 
     /**
@@ -172,9 +172,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * regardless of whether you called clear before or after put methods on this editor.
      */
     actual fun clear() {
-        pending.add({
+        pending.add {
             storage.clear()
-        })
+        }
     }
 
     actual fun apply() {
