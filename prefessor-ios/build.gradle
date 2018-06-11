@@ -26,4 +26,4 @@ task test(dependsOn: run) {
     group = LifecycleBasePlugin.VERIFICATION_GROUP
 }
 
-// check.dependsOn test
+check.dependsOn test
