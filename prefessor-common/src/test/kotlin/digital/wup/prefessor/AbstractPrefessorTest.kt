@@ -11,177 +11,210 @@ abstract class AbstractPrefessorTest {
 
     protected lateinit var prefessor: Prefessor
 
-    companion object {
-        private const val KEY = "test_key"
-    }
-
     @BeforeTest()
     open fun setup() {
         prefessor = PrefessorProvider.get()
         prefessor.edit().clear()
         prefessor.edit().apply()
+        // Clear again, because clear runs before modification operations
+        prefessor.edit().clear()
+        prefessor.edit().apply()
     }
 
     @Test
-    fun getBoolean_afterClear_returnsWithDefaultValue() {
+    fun getBoolean_clearPrefs_returnDefaultValue() {
+        val key = "getBoolean_clearPrefs_returnDefaultValue"
+
         // when
         prefessor.edit().clear()
         prefessor.edit().apply()
 
         // then
-        assertTrue(prefessor.getBoolean(KEY, true))
+        assertTrue { prefessor.getBoolean(key, true) }
     }
 
     @Test
-    fun putBoolean_putTrue_hasBeenSaved() {
+    fun putBoolean_putTrue_saveSuccessfully() {
+        val key = "putBoolean_putTrue_saveSuccessfully"
+
         // when
-        prefessor.edit().putBoolean(KEY, true)
+        prefessor.edit().putBoolean(key, true)
         prefessor.edit().apply()
 
         // then
-        assertTrue(prefessor.getBoolean(KEY, false))
+        assertTrue { prefessor.getBoolean(key, false) }
     }
 
     @Test
-    fun putBoolean_putTrue_doNotSaveWithoutApply() {
+    fun putBoolean_putTrue_notSaveValue() {
+        val key = "putBoolean_putTrue_notSaveValue"
+
         // when
-        prefessor.edit().putBoolean("putBoolean_putTrue_doNotSaveWithoutApply", true)
+        prefessor.edit().putBoolean(key, true)
 
         // then
-        assertFalse(prefessor.getBoolean("putBoolean_putTrue_doNotSaveWithoutApply", false))
+        assertFalse { prefessor.getBoolean(key, false) }
     }
 
     @Test
-    fun getFloat_afterClear_returnsWithDefaultValue() {
+    fun getFloat_clearPrefs_returnDefaultValue() {
+        val key = "getFloat_clearPrefs_returnDefaultValue"
+
         // when
         prefessor.edit().clear()
         prefessor.edit().apply()
         // then
-        assertEquals(1.0f, prefessor.getFloat(KEY, 1.0f))
+        assertEquals(1.0f, prefessor.getFloat(key, 1.0f))
     }
 
     @Test
-    fun putFloat_saveValue_hasBeenSaved() {
+    fun putFloat_saveValue_saveSuccessfully() {
+        val key = "putFloat_saveValue_saveSuccessfully"
+
         // when
-        prefessor.edit().putFloat(KEY, 30.0f)
+        prefessor.edit().putFloat(key, 30.0f)
         prefessor.edit().apply()
 
         // then
-        assertEquals(30.0f, prefessor.getFloat(KEY, 10.0f))
+        assertEquals(30.0f, prefessor.getFloat(key, 10.0f))
     }
 
     @Test
-    fun putFloat_saveValue_doNotSaveWithoutApply() {
+    fun putFloat_doNotApply_notSaveValue() {
+         val key = "putFloat_doNotApply_notSaveValue"
+
         // when
-        prefessor.edit().putFloat("putFloat_saveValue_doNotSaveWithoutApply", 7.0f)
+        prefessor.edit().putFloat(key, 7.0f)
 
         // then
-        assertEquals(1.0f, prefessor.getFloat("putFloat_saveValue_doNotSaveWithoutApply", 1.0f))
+        assertEquals(1.0f, prefessor.getFloat(key, 1.0f))
     }
 
     @Test
-    fun getInt_afterClear_returnsWithDefaultValue() {
+    fun getInt_clearPrefs_returnDefaultValue() {
+        val key = "getInt_clearPrefs_returnDefaultValue("
+
         // when
         prefessor.edit().clear()
         prefessor.edit().apply()
         // then
-        assertEquals(1, prefessor.getInt(KEY, 1))
+        assertEquals(1, prefessor.getInt(key, 1))
     }
 
     @Test
-    fun putInt_saveValue_hasBeenSaved() {
+    fun putInt_saveValue_saveSuccessfully() {
+        val key = "putInt_saveValue_saveSuccessfully"
+
         // when
-        prefessor.edit().putInt(KEY, 30)
+        prefessor.edit().putInt(key, 30)
         prefessor.edit().apply()
 
         // then
-        assertEquals(30, prefessor.getInt(KEY, 10))
+        assertEquals(30, prefessor.getInt(key, 10))
     }
 
     @Test
-    fun putInt_saveValue_doNotSaveWithoutApply() {
+    fun putInt_saveValue_notSaveValue() {
+        val key = "putInt_saveValue_notSaveValue"
+
         // when
-        prefessor.edit().putInt("putInt_saveValue_doNotSaveWithoutApply", 7)
+        prefessor.edit().putInt(key, 7)
 
         // then
-        assertEquals(1, prefessor.getInt("putInt_saveValue_doNotSaveWithoutApply", 1))
+        assertEquals(1, prefessor.getInt(key, 1))
     }
 
     @Test
-    fun getLong_afterClear_returnsWithDefaultValue() {
+    fun getLong_clearPrefs_returnDefaultValue() {
+        val key = "getLong_clearPrefs_returnDefaultValue"
+
         // when
         prefessor.edit().clear()
         prefessor.edit().apply()
         // then
-        assertEquals(1L, prefessor.getLong(KEY, 1L))
+        assertEquals(1L, prefessor.getLong(key, 1L))
     }
 
     @Test
-    fun putLong_saveValue_hasBeenSaved() {
+    fun putLong_saveValue_saveSuccessfully() {
+        val key = "putLong_saveValue_saveSuccessfully"
+
         // when
-        prefessor.edit().putLong(KEY, 30L)
+        prefessor.edit().putLong(key, 30L)
         prefessor.edit().apply()
 
         // then
-        assertEquals(30L, prefessor.getLong(KEY, 10L))
+        assertEquals(30L, prefessor.getLong(key, 10L))
     }
 
     @Test
-    fun putLong_saveValue_doNotSaveWithoutApply() {
+    fun putLong_saveValue_notSaveValue() {
+        val key = "putLong_saveValue_notSaveValue"
+
         // when
-        prefessor.edit().putLong("putLong_saveValue_doNotSaveWithoutApply", 7L)
+        prefessor.edit().putLong(key, 7L)
 
         // then
-        assertEquals(1L, prefessor.getLong("putLong_saveValue_doNotSaveWithoutApply", 1L))
+        assertEquals(1L, prefessor.getLong(key, 1L))
     }
 
     @Test
-    fun getString_afterClear_returnsWithDefaultValue() {
+    fun getString_clearPrefs_returnDefaultValue() {
+        val key = "getString_clearPrefs_returnDefaultValue"
+
         // when
         prefessor.edit().clear()
         prefessor.edit().apply()
         // then
-        assertEquals("default", prefessor.getString(KEY, "default"))
+        assertEquals("default", prefessor.getString(key, "default"))
     }
 
     @Test
-    fun putString_saveValue_hasBeenSaved() {
+    fun putString_putValue_saveSuccessfully() {
+        val key = "putString_putValue_saveSuccessfully"
+
         // when
-        prefessor.edit().putString(KEY, "test_value")
+        prefessor.edit().putString(key, "test_value")
         prefessor.edit().apply()
 
         // then
-        assertEquals("test_value", prefessor.getString(KEY, "default"))
+        assertEquals("test_value", prefessor.getString(key, "default"))
     }
 
     @Test
-    fun putString_saveValue_doNotSaveWithoutApply() {
+    fun putString_doNotApply_notSaveValue() {
+        val key = "putString_saveValue_notSaveValue"
+
         // when
-        prefessor.edit().putString("putString_saveValue_doNotSaveWithoutApply", "test_value")
+        prefessor.edit().putString(key, "test_value")
 
         // then
         assertEquals("default",
-                prefessor.getString("putString_saveValue_doNotSaveWithoutApply", "default"))
+                prefessor.getString(key, "default"))
     }
 
     @Test
-    fun remove_addAndRemoveValue_success() {
+    fun remove_putValueAndRemoveValue_clearSuccess() {
+        val key = "remove_putValueAndRemoveValue_clearSuccess"
+
         // when
-        prefessor.edit().putBoolean(KEY, true)
+        prefessor.edit().putBoolean(key, true)
         prefessor.edit().apply()
 
         // and
-        prefessor.edit().remove(KEY)
+        prefessor.edit().remove(key)
         prefessor.edit().apply()
 
         // than
-        assertFalse(prefessor.getBoolean(KEY, false))
+        assertFalse { prefessor.getBoolean(key, false) }
     }
 
     @Test
-    fun clean_addAndClearValue_success() {
+    fun clean_putValueAndClearValue_clearSuccess() {
+        val key = "clean_putValueAndClearValue_clearSuccess"
+
         // when
-        prefessor.edit().putBoolean(KEY, true)
+        prefessor.edit().putBoolean(key, true)
         prefessor.edit().apply()
 
         // and
@@ -189,6 +222,6 @@ abstract class AbstractPrefessorTest {
         prefessor.edit().apply()
 
         // than
-        assertFalse(prefessor.getBoolean(KEY, false))
+        assertFalse { prefessor.getBoolean(key, false) }
     }
 }
