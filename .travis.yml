@@ -22,15 +22,15 @@ install:
   # Download and unzip the Android SDK tools (if not already there thanks to the cache mechanism)
   # Latest version available here: https://developer.android.com/studio/index.html#downloads
 - mkdir -p $HOME/android-sdk-dl
-- unzip -qq -n $HOME/android-sdk-dl/sdk-tools.zip -d $HOME/android-sdk
 - if test ! -e $HOME/android-sdk-dl/sdk-tools.zip ; then curl https://dl.google.com/android/repository/sdk-tools-darwin-4333796.zip > $HOME/android-sdk-dl/sdk-tools.zip ; fi
+- unzip -qq -n $HOME/android-sdk-dl/sdk-tools.zip -d $ANDROID_HOME
   # Install or update Android SDK components (will not do anything if already up to date thanks to the cache mechanism)
-- yes | $HOME/android-sdk/tools/bin/sdkmanager --licenses > /dev/null
-- yes | $HOME/android-sdk/tools/bin/sdkmanager 'tools' > /dev/null
-- yes | $HOME/android-sdk/tools/bin/sdkmanager 'platform-tools' > /dev/null
-- yes | $HOME/android-sdk/tools/bin/sdkmanager 'build-tools;27.0.3' > /dev/null
-- yes | $HOME/android-sdk/tools/bin/sdkmanager 'platforms;android-27' > /dev/null
-- yes | $HOME/android-sdk/tools/bin/sdkmanager 'extras;google;m2repository' > /dev/null
+- yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses > /dev/null
+- yes | $ANDROID_HOME/tools/bin/sdkmanager 'tools' > /dev/null
+- yes | $ANDROID_HOME/tools/bin/sdkmanager 'platform-tools' > /dev/null
+- yes | $ANDROID_HOME/tools/bin/sdkmanager 'build-tools;27.0.3' > /dev/null
+- yes | $ANDROID_HOME/tools/bin/sdkmanager 'platforms;android-27' > /dev/null
+- yes | $ANDROID_HOME/tools/bin/sdkmanager 'extras;google;m2repository' > /dev/null
 
 env:
 - ANDROID_HOME=$HOME/android-sdk JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
