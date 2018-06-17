@@ -2,13 +2,13 @@ apply plugin: 'konan'
 
 konanArtifacts {
 
-    framework('Prefessor', targets: ['iphone', 'iphone_sim']) {
+    framework('Prefessor', targets: ['iphone', 'iphone_sim', 'macos_x64']) {
         srcDir 'src/main/kotlin'
         enableMultiplatform true
         commonSourceSets 'main'
     }
 
-    program('PrefessorTest') {
+    program('PrefessorTest', targets: ['macos_x64']) {
         srcDir 'src/main/kotlin'
         srcDir 'src/test/kotlin'
         commonSourceSets 'main', 'test'

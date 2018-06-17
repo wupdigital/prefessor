@@ -1,10 +1,6 @@
 package digital.wup.prefessor
 
-/* ktlint-disable no-wildcard-imports */
-import kotlinx.cinterop.*
-import platform.Foundation.*
-import platform.objc.*
-/* ktlint-enable no-wildcard-imports */
+import platform.Foundation.NSUserDefaults
 import kotlin.collections.mutableListOf
 
 actual class Prefessor private constructor(private val userDefaults: NSUserDefaults) {

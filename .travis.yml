@@ -1,14 +1,9 @@
-language: swift
+language: objective-c
 osx_image: xcode9.4
-
-podfile: ./ios/Podfile
 
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
-cache:
-- cocoapods
 
 cache:
 - directories:
@@ -20,6 +15,7 @@ cache:
   - $HOME/.gradle/wrapper/
     # Android build cache (see http://tools.android.com/tech-docs/build-cache)
   - $HOME/.android/build-cache
+  - $HOME/.konan/cache
 
 install:
 - gem install cocoapods --version 1.4.0
