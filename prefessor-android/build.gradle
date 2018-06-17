@@ -1,8 +1,10 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-platform-android'
 
+def compile_sdk_version = 27
+
 android {
-    compileSdkVersion 27
+    compileSdkVersion compile_sdk_version
     buildToolsVersion '27.0.3'
 
     defaultConfig {
@@ -22,6 +24,12 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
+    }
+
+    testOptions {
+        unitTests.all {
+            systemProperty 'robolectric.enabledSdks', compile_sdk_version
+        }
     }
 }
 
