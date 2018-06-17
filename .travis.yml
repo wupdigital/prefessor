@@ -34,6 +34,7 @@ install:
 
 env:
 - ANDROID_HOME=$HOME/android-sdk
+- DEFAULT_JVM_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
 
 script:
 - ./gradlew clean build
