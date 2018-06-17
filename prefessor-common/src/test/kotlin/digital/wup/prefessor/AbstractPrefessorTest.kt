@@ -22,8 +22,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun getBoolean_clearPrefs_returnDefaultValue() {
-        val key = "getBoolean_clearPrefs_returnDefaultValue"
+    fun getBoolean_clearAndApply_returnDefaultValue() {
+        val key = "getBoolean_clearAndApply_returnDefaultValue"
 
         // when
         prefessor.edit().clear()
@@ -34,8 +34,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun putBoolean_putTrue_saveSuccessfully() {
-        val key = "putBoolean_putTrue_saveSuccessfully"
+    fun getBoolean_putTrueAndApply_saveSuccessfullyAndReturnSavedValue() {
+        val key = "getBoolean_putTrueAndApply_saveSuccessfullyAndReturnSavedValue"
 
         // when
         prefessor.edit().putBoolean(key, true)
@@ -46,8 +46,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun putBoolean_putTrue_notSaveValue() {
-        val key = "putBoolean_putTrue_notSaveValue"
+    fun getBoolean_putTrueWithoutApply_notSaveValueAndReturnWithDefault() {
+        val key = "putBoolean_putTrueWithoutApply_notSaveValueAndReturnWithDefault"
 
         // when
         prefessor.edit().putBoolean(key, true)
@@ -57,8 +57,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun getFloat_clearPrefs_returnDefaultValue() {
-        val key = "getFloat_clearPrefs_returnDefaultValue"
+    fun getFloat_clearAndApply_returnDefaultValue() {
+        val key = "getFloat_clearAndApply_returnDefaultValue"
 
         // when
         prefessor.edit().clear()
@@ -68,8 +68,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun putFloat_saveValue_saveSuccessfully() {
-        val key = "putFloat_saveValue_saveSuccessfully"
+    fun getFloat_putFloatAndApply_saveSuccessfullyAndReturnSavedValue() {
+        val key = "getFloat_putFloatAndApply_saveSuccessfullyAndReturnSavedValue"
 
         // when
         prefessor.edit().putFloat(key, 30.0f)
@@ -80,8 +80,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun putFloat_doNotApply_notSaveValue() {
-         val key = "putFloat_doNotApply_notSaveValue"
+    fun getFloat_putFloatWithoutApply_notSaveValueAndReturnWithDefault() {
+        val key = "getFloat_putFloatWithoutApply_notSaveValueAndReturnWithDefault"
 
         // when
         prefessor.edit().putFloat(key, 7.0f)
@@ -91,8 +91,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun getInt_clearPrefs_returnDefaultValue() {
-        val key = "getInt_clearPrefs_returnDefaultValue("
+    fun getInt_clearAndApply_returnDefaultValue() {
+        val key = "getInt_clearAndApply_returnDefaultValue"
 
         // when
         prefessor.edit().clear()
@@ -102,8 +102,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun putInt_saveValue_saveSuccessfully() {
-        val key = "putInt_saveValue_saveSuccessfully"
+    fun getInt_putIntAndApply_saveSuccessfullyAndReturnSavedValue() {
+        val key = "getInt_putIntAndApply_saveSuccessfullyAndReturnSavedValue"
 
         // when
         prefessor.edit().putInt(key, 30)
@@ -114,8 +114,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun putInt_saveValue_notSaveValue() {
-        val key = "putInt_saveValue_notSaveValue"
+    fun getInt_putIntWithoutApply_notSaveValueAndReturnWithDefault() {
+        val key = "getInt_putIntWithoutApply_notSaveValueAndReturnWithDefault"
 
         // when
         prefessor.edit().putInt(key, 7)
@@ -125,8 +125,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun getLong_clearPrefs_returnDefaultValue() {
-        val key = "getLong_clearPrefs_returnDefaultValue"
+    fun getLong_clearAndApply_returnDefaultValue() {
+        val key = "getLong_clearAndApply_returnDefaultValue"
 
         // when
         prefessor.edit().clear()
@@ -136,8 +136,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun putLong_saveValue_saveSuccessfully() {
-        val key = "putLong_saveValue_saveSuccessfully"
+    fun getLong_putLongAndApply_saveSuccessfullyAndReturnSavedValue() {
+        val key = "getLong_putLongAndApply_saveSuccessfullyAndReturnSavedValue"
 
         // when
         prefessor.edit().putLong(key, 30L)
@@ -148,8 +148,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun putLong_saveValue_notSaveValue() {
-        val key = "putLong_saveValue_notSaveValue"
+    fun getLong_putLongWithoutApply_notSaveValueAndReturnWithDefault() {
+        val key = "getLong_putLongWithoutApply_notSaveValueAndReturnWithDefault"
 
         // when
         prefessor.edit().putLong(key, 7L)
@@ -159,8 +159,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun getString_clearPrefs_returnDefaultValue() {
-        val key = "getString_clearPrefs_returnDefaultValue"
+    fun getString_clearAndApply_returnDefaultValue() {
+        val key = "getString_clearAndApply_returnDefaultValue"
 
         // when
         prefessor.edit().clear()
@@ -170,8 +170,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun putString_putValue_saveSuccessfully() {
-        val key = "putString_putValue_saveSuccessfully"
+    fun getString_putStringAndApply_saveSuccessfullyAndReturnSavedValue() {
+        val key = "getString_putStringAndApply_saveSuccessfullyAndReturnSavedValue"
 
         // when
         prefessor.edit().putString(key, "test_value")
@@ -182,8 +182,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun putString_doNotApply_notSaveValue() {
-        val key = "putString_saveValue_notSaveValue"
+    fun getString_putStringWithoutApply_notSaveValueAndReturnWithDefault() {
+        val key = "getString_putStringWithoutApply_notSaveValueAndReturnWithDefault"
 
         // when
         prefessor.edit().putString(key, "test_value")
@@ -194,8 +194,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun remove_putValueAndRemoveValue_clearSuccess() {
-        val key = "remove_putValueAndRemoveValue_clearSuccess"
+    fun remove_putBooleanAndRemove_clearSuccess() {
+        val key = "remove_putBooleanAndRemove_clearSuccess"
 
         // when
         prefessor.edit().putBoolean(key, true)
@@ -210,8 +210,8 @@ abstract class AbstractPrefessorTest {
     }
 
     @Test
-    fun clean_putValueAndClearValue_clearSuccess() {
-        val key = "clean_putValueAndClearValue_clearSuccess"
+    fun clean_putBooleanAndClear_clearSuccess() {
+        val key = "clean_putBooleanAndClear_clearSuccess"
 
         // when
         prefessor.edit().putBoolean(key, true)
