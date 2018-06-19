@@ -98,6 +98,7 @@ actual class Prefessor private constructor(private val storage: Storage = localS
 actual class PrefessorEditor internal constructor(private val storage: Storage) {
 
     private val pending = mutableListOf<() -> Unit>()
+    private var clear = false
 
     /**
      * Set a boolean value in the preferences editor, to be written back once {@link #apply()) are called.
@@ -172,12 +173,15 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * regardless of whether you called clear before or after put methods on this editor.
      */
     actual fun clear() {
-        pending.add {
-            storage.clear()
-        }
+        clear = true
     }
 
     actual fun apply() {
+        if (clear) {
+            storage.clear()
+            clear = false
+        }
+
         pending.forEach {
             it()
         }

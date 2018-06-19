@@ -81,6 +81,7 @@ actual class Prefessor private constructor(private val userDefaults: NSUserDefau
 actual class PrefessorEditor internal constructor(private val userDefaults: NSUserDefaults) {
 
     private val pending = mutableListOf<() -> Unit>()
+    private var clear = false
 
     /**
      * Set a boolean value in the preferences editor, to be written back once {@link #apply()) are called.
@@ -152,19 +153,27 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
      * Note that when committing back to the preferences, the clear is done first, regardless of whether you called clear before or after put methods on this editor.
      */
     actual fun clear() {
-        pending.add {
-            val dict = userDefaults.dictionaryRepresentation()
-            dict.keys.forEach {
-                userDefaults.removeObjectForKey(it as String)
-            }
-        }
+        clear = true
     }
 
     actual fun apply() {
+
+        if (clear) {
+            clearAllFromUserDefauls()
+            clear = false
+        }
+
         pending.forEach {
             it()
         }
         // clear pendings after apply
         pending.removeAll { true }
+    }
+
+    private fun clearAllFromUserDefauls() {
+        val dict = userDefaults.dictionaryRepresentation()
+        dict.keys.forEach {
+            userDefaults.removeObjectForKey(it as String)
+        }
     }
 }

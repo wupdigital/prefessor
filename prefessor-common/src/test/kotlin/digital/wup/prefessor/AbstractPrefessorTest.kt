@@ -224,4 +224,17 @@ abstract class AbstractPrefessorTest {
         // than
         assertFalse { prefessor.getBoolean(key, false) }
     }
+
+    @Test
+    fun clear_putValueBeforeClear_cleanRunBeforeModifyOperations() {
+        val key = "clear_putValueBeforeClear_cleanRunBeforeModifyOperations"
+
+        // when
+        prefessor.edit().putBoolean(key, true)
+        prefessor.edit().clear()
+        prefessor.edit().apply()
+
+        // than
+        assertTrue { prefessor.getBoolean(key, false) }
+    }
 }
