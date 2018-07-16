@@ -55,6 +55,21 @@ expect class Prefessor {
     fun edit(): PrefessorEditor
 }
 
+/**
+ * Allows editing of this preference instance with a call to [apply][PrefessorEditor.apply]
+ * to persist the changes.
+ * ```
+ * prefs.edit {
+ *     putString("key", value)
+ * }
+ * ```
+ */
+inline fun Prefessor.edit(action: PrefessorEditor.() -> Unit) {
+    val editor = edit()
+    action(editor)
+    editor.apply()
+}
+
 expect class PrefessorEditor {
 
     /**
