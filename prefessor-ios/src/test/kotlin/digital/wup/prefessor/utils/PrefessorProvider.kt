@@ -4,6 +4,7 @@ import digital.wup.prefessor.Prefessor
 
 actual sealed class PrefessorProvider {
 
+    @konan.ThreadLocal
     actual companion object {
 
         private val prefessor by lazy {
