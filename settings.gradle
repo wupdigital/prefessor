@@ -1,3 +1,3 @@
-rootProject.name = 'prefessor'
+rootProject.name = 'prefessor-root'
 
-include 'prefessor-common', 'prefessor-android', 'prefessor-ios', 'prefessor-js'
+include ':prefessor:common', ':prefessor:android', ':prefessor:apple', ':prefessor:js'

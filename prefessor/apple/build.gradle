@@ -19,7 +19,7 @@ konanArtifacts {
 }
 
 dependencies {
-    expectedBy project(":prefessor-common")
+    expectedBy project(":prefessor:common")
 }
 
 task test(dependsOn: run) {
