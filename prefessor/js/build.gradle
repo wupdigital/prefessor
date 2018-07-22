@@ -51,3 +51,14 @@ task sourcesJar(type: Jar) {
 artifacts {
     archives sourcesJar
 }
+
+// Workaround the problem with Node downloading:
+// Konan plugin uses Gradle-metadata feature which is not compatible
+// with node plugin download implementation
+repositories.whenObjectAdded {
+    if (it instanceof IvyArtifactRepository) {
+        metadataSources {
+            artifact()
+        }
+    }
+}

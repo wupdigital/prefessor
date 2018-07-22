@@ -1,3 +1,5 @@
 rootProject.name = 'prefessor-root'
 
 include ':prefessor:common', ':prefessor:android', ':prefessor:apple', ':prefessor:js'
+
+enableFeaturePreview('GRADLE_METADATA')
