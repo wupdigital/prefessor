@@ -43,15 +43,6 @@ task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModu
 
 test.dependsOn runMocha
 
-task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from sourceSets.main.kotlin
-}
-
-artifacts {
-    archives sourcesJar
-}
-
 // Workaround the problem with Node downloading:
 // Konan plugin uses Gradle-metadata feature which is not compatible
 // with node plugin download implementation

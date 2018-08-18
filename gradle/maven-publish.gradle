@@ -1,13 +1,30 @@
 apply plugin: 'digital.wup.android-maven-publish'
 
+def component() {
+    if (project.name == 'android') {
+        //return components.android
+    } else {
+       // return components.java
+    }
+}
+
+afterEvaluate {
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        if (project.name == 'android') {
+            from android.sourceSets.main.kotlin
+        } else if (project.name != 'apple') {
+            from sourceSets.main.kotlin
+        }
+    }
+}
+
 publishing {
     publications {
         prefessor(MavenPublication) {
-
-            if (components.findByName('android')) {
-                from components.android
-            } else if (components.findByName('java')) {
-                from components.java
+            if (project.name != 'apple') {
+                from component()
+                artifact sourcesJar
             }
         }
     }

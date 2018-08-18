@@ -41,7 +41,7 @@ allprojects {
 }
 
 
-project(':prefessor').subprojects {
+configure(project(':prefessor').subprojects) {
     apply from: "$rootDir/gradle/ktlint.gradle"
     apply from: "$rootDir/gradle/detekt.gradle"
     apply from: "$rootDir/gradle/maven-publish.gradle"
