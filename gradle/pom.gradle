@@ -1,0 +1,45 @@
+def isRelease() {
+    !project.version.endsWith('-SNAPSHOT')
+}
+
+def scmTag() {
+    isRelease() ? project.version : 'master'
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            name 'Balázs Varga'
+            email 'balazs.varga@wup.hu'
+            organization 'W.UP Ltd.'
+            organizationUrl 'http://wup.digital'
+        }
+    }
+
+
+    scm {
+        connection "scm:git:git://github.com/wupdigital/prefessor.git"
+        developerConnection "scm:git:ssh://github.com/wupdigital/prefessor.git"
+        url "https://github.com/wupdigital/prefessor/tree/${scmTag()}"
+        tag scmTag()
+    }
+}
+
+def withPom = { pom ->
+    pom.withXml {
+        def root = asNode()
+        root.appendNode('name', project.name)
+        root.appendNode('description', 'Multiplatform preference manager library.')
+        root.appendNode('url', 'https://github.com/wupdigital/prefessor')
+        root.children().last() + pomConfig
+    }
+}
+
+ext.withPom = withPom

@@ -1,4 +1,5 @@
 apply plugin: 'digital.wup.android-maven-publish'
+apply from: "$rootDir/gradle/pom.gradle"
 
 def component() {
     if (project.name == 'android') {
@@ -13,6 +14,7 @@ publishing {
         prefessor(MavenPublication) {
             if (project.name != 'apple') {
                 from component()
+                withPom(pom)
             }
         }
     }
