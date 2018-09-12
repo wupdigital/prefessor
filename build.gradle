@@ -21,6 +21,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$android_gradle_build_tools_version"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$gradle_bintray_plugin_version"
         classpath "com.moowork.gradle:gradle-node-plugin:$gradle_node_version"
         classpath "digital.wup:android-maven-publish:$android_maven_publish_version"
         classpath "gradle.plugin.io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
@@ -47,4 +48,5 @@ configure(project(':prefessor').subprojects) {
     apply from: "$rootDir/gradle/ktlint.gradle"
     apply from: "$rootDir/gradle/detekt.gradle"
     apply from: "$rootDir/gradle/maven-publish.gradle"
+    apply from: "$rootDir/gradle/bintray-upload.gradle"
 }

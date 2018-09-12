@@ -1,0 +1,35 @@
+apply plugin: 'com.jfrog.bintray'
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    override = true // for multi-platform Kotlin/Native publishing
+    publications = ['prefessor']
+    pkg {
+        userOrg = 'wup-digital'
+        repo = 'prefessor'
+        name = 'digital.wup.prefessor'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/wupdigital/prefessor'
+        websiteUrl = 'https://github.com/wupdigital/prefessor'
+        issueTrackerUrl = 'https://github.com/wupdigital/prefessor/issues'
+        githubRepo = 'wupdigital/prefessor'
+
+        version {
+            name = project.version
+            vcsTag = project.version
+            released = new Date()
+        }
+    }
+}
+
+// This is required for K/N publishing
+bintrayUpload.dependsOn publishToMavenLocal
+
+// This is for easier debugging of bintray uploading problems
+bintrayUpload.doFirst {
+    publications = project.publishing.publications.findAll { !it.name.contains('-test') }.collect {
+        println("Uploading artifact '$it.groupId:$it.artifactId:$it.version' from publication '$it.name'")
+        it
+    }
+}
