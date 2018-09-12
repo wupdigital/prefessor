@@ -2,20 +2,9 @@ apply plugin: 'digital.wup.android-maven-publish'
 
 def component() {
     if (project.name == 'android') {
-        //return components.android
+        return components.android
     } else {
-       // return components.java
-    }
-}
-
-afterEvaluate {
-    task sourcesJar(type: Jar) {
-        classifier = 'sources'
-        if (project.name == 'android') {
-            from android.sourceSets.main.kotlin
-        } else if (project.name != 'apple') {
-            from sourceSets.main.kotlin
-        }
+        return components.java
     }
 }
 
@@ -24,7 +13,6 @@ publishing {
         prefessor(MavenPublication) {
             if (project.name != 'apple') {
                 from component()
-                artifact sourcesJar
             }
         }
     }
