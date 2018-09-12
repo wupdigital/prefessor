@@ -4,7 +4,7 @@ import digital.wup.prefessor.Prefessor
 
 actual sealed class PrefessorProvider {
 
-    @konan.ThreadLocal
+    @kotlin.native.ThreadLocal
     actual companion object {
 
         private val prefessor by lazy {

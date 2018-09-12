@@ -81,6 +81,7 @@ actual class Prefessor private constructor(private val userDefaults: NSUserDefau
 actual class PrefessorEditor internal constructor(private val userDefaults: NSUserDefaults) {
 
     private val pending = mutableListOf<() -> Unit>()
+    @kotlin.native.ThreadLocal
     private var clear = false
 
     /**
