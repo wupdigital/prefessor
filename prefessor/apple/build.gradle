@@ -10,3 +10,15 @@ sourceSets.main {
 dependencies {
     expectedBy project(":prefessor:common")
 }
+
+afterEvaluate {
+    javadocJarMain.from(files('src/main/kotlin'))
+    sourcesJarMain.from(files('src/main/kotlin'))
+
+    tasks.findAll {
+        it.name.startsWith('publish') && it.group == 'publishing'
+    }.each {
+        it.dependsOn javadocJarMain
+        it.dependsOn tasks.findAll { it.name.startsWith('sourcesJar') }
+    }
+}

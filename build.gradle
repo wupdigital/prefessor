@@ -40,10 +40,6 @@ allprojects {
         google()
         jcenter()
     }
-
-    tasks.withType(Javadoc) {
-        enabled = false
-    }
 }
 
 
