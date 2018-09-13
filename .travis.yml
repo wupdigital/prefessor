@@ -33,7 +33,7 @@ install:
 - yes | $ANDROID_HOME/tools/bin/sdkmanager 'extras;google;m2repository' > /dev/null
 
 env:
-- ANDROID_HOME=$HOME/android-sdk JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
+- ANDROID_HOME=$HOME/android-sdk
 
 script:
 - ./gradlew clean build
