@@ -18,7 +18,7 @@ cache:
   - $HOME/.konan/cache
 
 install:
-- gem install cocoapods --version 1.4.0
+- gem install cocoapods --version 1.5.2
   # Download and unzip the Android SDK tools (if not already there thanks to the cache mechanism)
   # Latest version available here: https://developer.android.com/studio/index.html#downloads
 - mkdir -p $HOME/android-sdk-dl
