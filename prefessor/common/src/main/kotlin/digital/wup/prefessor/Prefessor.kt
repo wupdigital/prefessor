@@ -1,8 +1,19 @@
 package digital.wup.prefessor
 
+/**
+ * Class for accessing and modifying preference data. For any particular set of preferences,
+ * there is a single instance of this class that all clients share.
+ * Modifications to the preferences must go through an [PrefessorEditor] object to ensure the preference values
+ * remain in a consistent state and control when they are committed to storage.
+ * Objects that are returned from the various get methods must be treated as immutable by the application.
+ */
 expect class Prefessor {
 
     companion object {
+        /**
+         * Creates a new [Prefessor] instance.
+         * @return A new [Prefessor] instance
+         */
         fun create(): Prefessor
     }
 
@@ -52,11 +63,76 @@ expect class Prefessor {
      */
     fun getString(key: String, defValue: String): String
 
+    /**
+     * Create a new [PrefessorEditor] for these preferences,
+     * through which you can make modifications to the data in the preferences and atomically commit
+     * those changes back to the [Prefessor] object.
+     */
     fun edit(): PrefessorEditor
 }
 
 /**
- * Allows editing of this preference instance with a call to [apply][PrefessorEditor.apply]
+ * Class used for modifying values in a [Prefessor] object.
+ * All changes you make in an editor are batched,
+ * and not copied back to the original SharedPreferences until you call [apply()][PrefessorEditor.apply]
+ */
+expect class PrefessorEditor {
+
+    /**
+     * Set a boolean value in the preferences editor, to be written back once [apply()][apply] are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    fun putBoolean(key: String, value: Boolean)
+
+    /**
+     * Set a float value in the preferences editor, to be written back once [apply()][apply] are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    fun putFloat(key: String, value: Float)
+
+    /**
+     * Set an int value in the preferences editor, to be written back once [apply()][apply] are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    fun putInt(key: String, value: Int)
+
+    /**
+     * Set a long value in the preferences editor, to be written back once [apply()][apply] are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    fun putLong(key: String, value: Long)
+
+    /**
+     * Set a string value in the preferences editor, to be written back once [apply()][apply] are called.
+     * @param key The name of the preference to modify.
+     * @param value The new value for the preference.
+     */
+    fun putString(key: String, value: String)
+
+    /**
+     * Mark in the editor that a preference value should be removed, which will be done in the actual preferences once [apply()][apply] is called.
+     * @param key The name of the preference to remove.
+     */
+    fun remove(key: String)
+
+    /**
+     * Mark in the editor to remove all values from the preferences. Once commit is called, the only remaining preferences will be any that you have defined in this editor.
+     * Note that when committing back to the preferences, the clear is done first, regardless of whether you called clear before or after put methods on this editor.
+     */
+    fun clear()
+
+    /**
+     * Commit your preferences changes back from this [PrefessorEditor] to the [Prefessor] object it is editing.
+     */
+    fun apply()
+}
+
+/**
+ * Allows editing of this preference instance with a call to [apply()][PrefessorEditor.apply]
  * to persist the changes.
  * ```
  * prefs.edit {
@@ -68,56 +144,4 @@ inline fun Prefessor.edit(action: PrefessorEditor.() -> Unit) {
     val editor = edit()
     action(editor)
     editor.apply()
-}
-
-expect class PrefessorEditor {
-
-    /**
-     * Set a boolean value in the preferences editor, to be written back once {@link #apply()) are called.
-     * @param key The name of the preference to modify.
-     * @param value The new value for the preference.
-     */
-    fun putBoolean(key: String, value: Boolean)
-
-    /**
-     * Set a float value in the preferences editor, to be written back once {@link #apply()) are called.
-     * @param key The name of the preference to modify.
-     * @param value The new value for the preference.
-     */
-    fun putFloat(key: String, value: Float)
-
-    /**
-     * Set an int value in the preferences editor, to be written back once {@link #apply()) are called.
-     * @param key The name of the preference to modify.
-     * @param value The new value for the preference.
-     */
-    fun putInt(key: String, value: Int)
-
-    /**
-     * Set a long value in the preferences editor, to be written back once {@link #apply()) are called.
-     * @param key The name of the preference to modify.
-     * @param value The new value for the preference.
-     */
-    fun putLong(key: String, value: Long)
-
-    /**
-     * Set a string value in the preferences editor, to be written back once {@link #apply()) are called.
-     * @param key The name of the preference to modify.
-     * @param value The new value for the preference.
-     */
-    fun putString(key: String, value: String)
-
-    /**
-     * Mark in the editor that a preference value should be removed, which will be done in the actual preferences once {@link #commit()} is called.
-     * @param key The name of the preference to remove.
-     */
-    fun remove(key: String)
-
-    /**
-     * Mark in the editor to remove all values from the preferences. Once commit is called, the only remaining preferences will be any that you have defined in this editor.
-     * Note that when committing back to the preferences, the clear is done first, regardless of whether you called clear before or after put methods on this editor.
-     */
-    fun clear()
-
-    fun apply()
 }

@@ -4,20 +4,24 @@ import kotlin.browser.localStorage
 import kotlin.collections.mutableListOf
 import org.w3c.dom.Storage
 
+/**
+ * Class for accessing and modifying preference data. For any particular set of preferences,
+ * there is a single instance of this class that all clients share.
+ * Modifications to the preferences must go through an [PrefessorEditor] object to ensure the preference values
+ * remain in a consistent state and control when they are committed to storage.
+ * Objects that are returned from the various get methods must be treated as immutable by the application.
+ */
 actual class Prefessor private constructor(private val storage: Storage = localStorage) {
 
-    private val editor by lazy {
-        PrefessorEditor(storage)
-    }
-
     actual companion object {
+
+        /**
+         * Creates a new [Prefessor] instance.
+         * @return A new [Prefessor] instance
+         */
         actual fun create(): Prefessor {
             return Prefessor()
         }
-    }
-
-    actual fun edit(): PrefessorEditor {
-        return editor
     }
 
     /**
@@ -93,15 +97,29 @@ actual class Prefessor private constructor(private val storage: Storage = localS
     actual fun getString(key: String, defValue: String): String {
         return storage.getItem(key) ?: defValue
     }
+
+    /**
+     * Create a new [PrefessorEditor] for these preferences,
+     * through which you can make modifications to the data in the preferences and atomically commit
+     * those changes back to the [Prefessor] object.
+     */
+    actual fun edit(): PrefessorEditor {
+        return PrefessorEditor(storage)
+    }
 }
 
+/**
+ * Class used for modifying values in a [Prefessor] object.
+ * All changes you make in an editor are batched,
+ * and not copied back to the original SharedPreferences until you call [apply()][PrefessorEditor.apply]
+ */
 actual class PrefessorEditor internal constructor(private val storage: Storage) {
 
     private val pending = mutableListOf<() -> Unit>()
     private var clear = false
 
     /**
-     * Set a boolean value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a boolean value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -112,7 +130,7 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
     }
 
     /**
-     * Set a float value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a float value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -123,7 +141,7 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
     }
 
     /**
-     * Set an int value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set an int value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -134,7 +152,7 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
     }
 
     /**
-     * Set a long value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a long value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -145,7 +163,7 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
     }
 
     /**
-     * Set a string value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a string value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -157,7 +175,7 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
 
     /**
      * Mark in the editor that a preference value should be removed,
-     * which will be done in the actual preferences once {@link #commit()} is called.
+     * which will be done in the actual preferences once [apply()][apply] is called.
      * @param key The name of the preference to remove.
      */
     actual fun remove(key: String) {
@@ -176,6 +194,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
         clear = true
     }
 
+    /**
+     * Commit your preferences changes back from this [PrefessorEditor] to the [Prefessor] object it is editing.
+     */
     actual fun apply() {
         if (clear) {
             storage.clear()

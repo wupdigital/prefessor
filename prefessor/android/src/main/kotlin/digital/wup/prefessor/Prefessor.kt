@@ -5,29 +5,49 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import digital.wup.prefessor.internal.ContextProvider
 
+/**
+ * Class for accessing and modifying preference data. For any particular set of preferences,
+ * there is a single instance of this class that all clients share.
+ * Modifications to the preferences must go through an [PrefessorEditor] object to ensure the preference values
+ * remain in a consistent state and control when they are committed to storage.
+ * Objects that are returned from the various get methods must be treated as immutable by the application.
+ */
 actual class Prefessor private constructor(private val sharedPreferences: SharedPreferences) {
-
-    private val editor: PrefessorEditor by lazy {
-        @SuppressWarnings("CommitPrefEdits")
-        val prefEditor = sharedPreferences.edit()
-        PrefessorEditor(prefEditor)
-    }
 
     actual companion object {
 
+        /**
+         * Creates a new [Prefessor] instance.
+         * @return A new [Prefessor] instance
+         * @since 0.1.0
+         */
         @JvmStatic
         actual fun create(): Prefessor {
             return create(ContextProvider.get())
         }
 
+        /**
+         * Creates a new [Prefessor] instance.
+         * @param context Application context for gets default shared preferences
+         * @return A new [Prefessor] instance
+         * @since 0.1.0
+         */
         internal fun create(context: Context): Prefessor {
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
             return Prefessor(prefs)
         }
     }
 
+    /**
+     * Create a new [PrefessorEditor] for these preferences,
+     * through which you can make modifications to the data in the preferences and atomically commit
+     * those changes back to the [Prefessor] object.
+     * @since 0.1.0
+     */
     actual fun edit(): PrefessorEditor {
-        return editor
+        @SuppressWarnings("CommitPrefEdits")
+        val prefEditor = sharedPreferences.edit()
+        return PrefessorEditor(prefEditor)
     }
 
     /**
@@ -89,10 +109,15 @@ actual class Prefessor private constructor(private val sharedPreferences: Shared
     }
 }
 
+/**
+ * Class used for modifying values in a [Prefessor] object.
+ * All changes you make in an editor are batched,
+ * and not copied back to the original SharedPreferences until you call [apply()][PrefessorEditor.apply]
+ */
 actual class PrefessorEditor internal constructor(private val editor: SharedPreferences.Editor) {
 
     /**
-     * Set a boolean value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a boolean value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -101,7 +126,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
     }
 
     /**
-     * Set a float value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a float value in the preferences editor, to be written back once apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -110,7 +135,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
     }
 
     /**
-     * Set an int value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set an int value in the preferences editor, to be written back once apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -119,7 +144,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
     }
 
     /**
-     * Set a long value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a long value in the preferences editor, to be written back once apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -128,7 +153,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
     }
 
     /**
-     * Set a string value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a string value in the preferences editor, to be written back once apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -137,7 +162,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
     }
 
     /**
-     * Mark in the editor that a preference value should be removed, which will be done in the actual preferences once {@link #commit()} is called.
+     * Mark in the editor that a preference value should be removed, which will be done in the actual preferences once apply()][apply] is called.
      * @param key The name of the preference to remove.
      */
     actual fun remove(key: String) {
@@ -152,6 +177,9 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
         editor.clear()
     }
 
+    /**
+     * Commit your preferences changes back from this [PrefessorEditor] to the [Prefessor] object it is editing.
+     */
     actual fun apply() {
         editor.apply()
     }

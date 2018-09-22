@@ -3,13 +3,21 @@ package digital.wup.prefessor
 import platform.Foundation.NSUserDefaults
 import kotlin.collections.mutableListOf
 
+/**
+ * Class for accessing and modifying preference data. For any particular set of preferences,
+ * there is a single instance of this class that all clients share.
+ * Modifications to the preferences must go through an [PrefessorEditor] object to ensure the preference values
+ * remain in a consistent state and control when they are committed to storage.
+ * Objects that are returned from the various get methods must be treated as immutable by the application.
+ */
 actual class Prefessor private constructor(private val userDefaults: NSUserDefaults) {
 
-    private val editor by lazy {
-        PrefessorEditor(userDefaults)
-    }
-
     actual companion object {
+
+        /**
+         * Creates a new [Prefessor] instance.
+         * @return A new [Prefessor] instance
+         */
         actual fun create(): Prefessor {
             return Prefessor(NSUserDefaults.standardUserDefaults)
         }
@@ -73,11 +81,21 @@ actual class Prefessor private constructor(private val userDefaults: NSUserDefau
         return userDefaults.objectForKey(key) as String? ?: defValue
     }
 
+    /**
+     * Create a new [PrefessorEditor] for these preferences,
+     * through which you can make modifications to the data in the preferences and atomically commit
+     * those changes back to the [Prefessor] object.
+     */
     actual fun edit(): PrefessorEditor {
-        return editor
+        return PrefessorEditor(userDefaults)
     }
 }
 
+/**
+ * Class used for modifying values in a [Prefessor] object.
+ * All changes you make in an editor are batched,
+ * and not copied back to the original SharedPreferences until you call [apply()][PrefessorEditor.apply]
+ */
 actual class PrefessorEditor internal constructor(private val userDefaults: NSUserDefaults) {
 
     private val pending = mutableListOf<() -> Unit>()
@@ -85,7 +103,7 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
     private var clear = false
 
     /**
-     * Set a boolean value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a boolean value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -96,7 +114,7 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
     }
 
     /**
-     * Set a float value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a float value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -107,7 +125,7 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
     }
 
     /**
-     * Set an int value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set an int value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -118,7 +136,7 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
     }
 
     /**
-     * Set a long value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a long value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -129,7 +147,7 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
     }
 
     /**
-     * Set a string value in the preferences editor, to be written back once {@link #apply()) are called.
+     * Set a string value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
@@ -157,6 +175,9 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
         clear = true
     }
 
+    /**
+     * Commit your preferences changes back from this [PrefessorEditor] to the [Prefessor] object it is editing.
+     */
     actual fun apply() {
 
         if (clear) {
