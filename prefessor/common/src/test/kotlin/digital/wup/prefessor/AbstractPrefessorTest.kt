@@ -14,11 +14,13 @@ abstract class AbstractPrefessorTest {
     @BeforeTest()
     open fun setup() {
         prefessor = PrefessorProvider.get()
-        prefessor.edit().clear()
-        prefessor.edit().apply()
+        prefessor.edit()
+                .clear()
+                .apply()
         // Clear again, because clear runs before modification operations
-        prefessor.edit().clear()
-        prefessor.edit().apply()
+        prefessor.edit()
+                .clear()
+                .apply()
     }
 
     @Test
@@ -26,8 +28,9 @@ abstract class AbstractPrefessorTest {
         val key = "getBoolean_clearAndApply_returnDefaultValue"
 
         // when
-        prefessor.edit().clear()
-        prefessor.edit().apply()
+        prefessor.edit()
+                .clear()
+                .apply()
 
         // then
         assertTrue { prefessor.getBoolean(key, true) }
@@ -38,8 +41,9 @@ abstract class AbstractPrefessorTest {
         val key = "getBoolean_putTrueAndApply_saveSuccessfullyAndReturnSavedValue"
 
         // when
-        prefessor.edit().putBoolean(key, true)
-        prefessor.edit().apply()
+        prefessor.edit()
+                .putBoolean(key, true)
+                .apply()
 
         // then
         assertTrue { prefessor.getBoolean(key, false) }
@@ -50,7 +54,8 @@ abstract class AbstractPrefessorTest {
         val key = "putBoolean_putTrueWithoutApply_notSaveValueAndReturnWithDefault"
 
         // when
-        prefessor.edit().putBoolean(key, true)
+        prefessor.edit()
+                .putBoolean(key, true)
 
         // then
         assertFalse { prefessor.getBoolean(key, false) }
@@ -61,8 +66,9 @@ abstract class AbstractPrefessorTest {
         val key = "getFloat_clearAndApply_returnDefaultValue"
 
         // when
-        prefessor.edit().clear()
-        prefessor.edit().apply()
+        prefessor.edit()
+                .clear()
+                .apply()
         // then
         assertEquals(1.0f, prefessor.getFloat(key, 1.0f))
     }
@@ -72,8 +78,9 @@ abstract class AbstractPrefessorTest {
         val key = "getFloat_putFloatAndApply_saveSuccessfullyAndReturnSavedValue"
 
         // when
-        prefessor.edit().putFloat(key, 30.0f)
-        prefessor.edit().apply()
+        prefessor.edit()
+                .putFloat(key, 30.0f)
+                .apply()
 
         // then
         assertEquals(30.0f, prefessor.getFloat(key, 10.0f))
@@ -84,7 +91,8 @@ abstract class AbstractPrefessorTest {
         val key = "getFloat_putFloatWithoutApply_notSaveValueAndReturnWithDefault"
 
         // when
-        prefessor.edit().putFloat(key, 7.0f)
+        prefessor.edit()
+                .putFloat(key, 7.0f)
 
         // then
         assertEquals(1.0f, prefessor.getFloat(key, 1.0f))
@@ -95,8 +103,9 @@ abstract class AbstractPrefessorTest {
         val key = "getInt_clearAndApply_returnDefaultValue"
 
         // when
-        prefessor.edit().clear()
-        prefessor.edit().apply()
+        prefessor.edit()
+                .clear()
+                .apply()
         // then
         assertEquals(1, prefessor.getInt(key, 1))
     }
@@ -106,8 +115,9 @@ abstract class AbstractPrefessorTest {
         val key = "getInt_putIntAndApply_saveSuccessfullyAndReturnSavedValue"
 
         // when
-        prefessor.edit().putInt(key, 30)
-        prefessor.edit().apply()
+        prefessor.edit()
+                .putInt(key, 30)
+                .apply()
 
         // then
         assertEquals(30, prefessor.getInt(key, 10))
@@ -118,7 +128,8 @@ abstract class AbstractPrefessorTest {
         val key = "getInt_putIntWithoutApply_notSaveValueAndReturnWithDefault"
 
         // when
-        prefessor.edit().putInt(key, 7)
+        prefessor.edit()
+                .putInt(key, 7)
 
         // then
         assertEquals(1, prefessor.getInt(key, 1))
@@ -129,8 +140,10 @@ abstract class AbstractPrefessorTest {
         val key = "getLong_clearAndApply_returnDefaultValue"
 
         // when
-        prefessor.edit().clear()
-        prefessor.edit().apply()
+        prefessor.edit()
+                .clear()
+                .apply()
+
         // then
         assertEquals(1L, prefessor.getLong(key, 1L))
     }
@@ -140,8 +153,9 @@ abstract class AbstractPrefessorTest {
         val key = "getLong_putLongAndApply_saveSuccessfullyAndReturnSavedValue"
 
         // when
-        prefessor.edit().putLong(key, 30L)
-        prefessor.edit().apply()
+        prefessor.edit()
+                .putLong(key, 30L)
+                .apply()
 
         // then
         assertEquals(30L, prefessor.getLong(key, 10L))
@@ -152,7 +166,8 @@ abstract class AbstractPrefessorTest {
         val key = "getLong_putLongWithoutApply_notSaveValueAndReturnWithDefault"
 
         // when
-        prefessor.edit().putLong(key, 7L)
+        prefessor.edit()
+                .putLong(key, 7L)
 
         // then
         assertEquals(1L, prefessor.getLong(key, 1L))
@@ -163,8 +178,10 @@ abstract class AbstractPrefessorTest {
         val key = "getString_clearAndApply_returnDefaultValue"
 
         // when
-        prefessor.edit().clear()
-        prefessor.edit().apply()
+        prefessor.edit()
+                .clear()
+                .apply()
+
         // then
         assertEquals("default", prefessor.getString(key, "default"))
     }
@@ -174,8 +191,9 @@ abstract class AbstractPrefessorTest {
         val key = "getString_putStringAndApply_saveSuccessfullyAndReturnSavedValue"
 
         // when
-        prefessor.edit().putString(key, "test_value")
-        prefessor.edit().apply()
+        prefessor.edit()
+                .putString(key, "test_value")
+                .apply()
 
         // then
         assertEquals("test_value", prefessor.getString(key, "default"))
@@ -186,7 +204,8 @@ abstract class AbstractPrefessorTest {
         val key = "getString_putStringWithoutApply_notSaveValueAndReturnWithDefault"
 
         // when
-        prefessor.edit().putString(key, "test_value")
+        prefessor.edit()
+                .putString(key, "test_value")
 
         // then
         assertEquals("default",
@@ -198,12 +217,14 @@ abstract class AbstractPrefessorTest {
         val key = "remove_putBooleanAndRemove_clearSuccess"
 
         // when
-        prefessor.edit().putBoolean(key, true)
-        prefessor.edit().apply()
+        prefessor.edit()
+                .putBoolean(key, true)
+                .apply()
 
         // and
-        prefessor.edit().remove(key)
-        prefessor.edit().apply()
+        prefessor.edit()
+                .remove(key)
+                .apply()
 
         // than
         assertFalse { prefessor.getBoolean(key, false) }
@@ -214,12 +235,14 @@ abstract class AbstractPrefessorTest {
         val key = "clean_putBooleanAndClear_clearSuccess"
 
         // when
-        prefessor.edit().putBoolean(key, true)
-        prefessor.edit().apply()
+        prefessor.edit()
+                .putBoolean(key, true)
+                .apply()
 
         // and
-        prefessor.edit().clear()
-        prefessor.edit().apply()
+        prefessor.edit()
+                .clear()
+                .apply()
 
         // than
         assertFalse { prefessor.getBoolean(key, false) }
@@ -230,9 +253,10 @@ abstract class AbstractPrefessorTest {
         val key = "clear_putValueBeforeClear_cleanRunBeforeModifyOperations"
 
         // when
-        prefessor.edit().putBoolean(key, true)
-        prefessor.edit().clear()
-        prefessor.edit().apply()
+        prefessor.edit()
+                .putBoolean(key, true)
+                .clear()
+                .apply()
 
         // than
         assertTrue { prefessor.getBoolean(key, false) }

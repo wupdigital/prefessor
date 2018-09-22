@@ -107,10 +107,11 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putBoolean(key: String, value: Boolean) {
+    actual fun putBoolean(key: String, value: Boolean): PrefessorEditor {
         pending.add {
             userDefaults.setBool(value, key)
         }
+        return this
     }
 
     /**
@@ -118,10 +119,11 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putFloat(key: String, value: Float) {
+    actual fun putFloat(key: String, value: Float): PrefessorEditor {
         pending.add {
             userDefaults.setFloat(value, key)
         }
+        return this
     }
 
     /**
@@ -129,10 +131,11 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putInt(key: String, value: Int) {
+    actual fun putInt(key: String, value: Int): PrefessorEditor {
         pending.add {
             userDefaults.setObject(value, key)
         }
+        return this
     }
 
     /**
@@ -140,10 +143,11 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putLong(key: String, value: Long) {
+    actual fun putLong(key: String, value: Long): PrefessorEditor {
         pending.add {
             userDefaults.setInteger(value, key)
         }
+        return this
     }
 
     /**
@@ -151,28 +155,31 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putString(key: String, value: String) {
+    actual fun putString(key: String, value: String): PrefessorEditor {
         pending.add {
             userDefaults.setObject(value, key)
         }
+        return this
     }
 
     /**
      * Mark in the editor that a preference value should be removed, which will be done in the actual preferences once {@link #commit()} is called.
      * @param key The name of the preference to remove.
      */
-    actual fun remove(key: String) {
+    actual fun remove(key: String): PrefessorEditor {
         pending.add {
             userDefaults.removeObjectForKey(key)
         }
+        return this
     }
 
     /**
      * Mark in the editor to remove all values from the preferences. Once commit is called, the only remaining preferences will be any that you have defined in this editor.
      * Note that when committing back to the preferences, the clear is done first, regardless of whether you called clear before or after put methods on this editor.
      */
-    actual fun clear() {
+    actual fun clear(): PrefessorEditor {
         clear = true
+        return this
     }
 
     /**

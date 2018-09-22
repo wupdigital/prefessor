@@ -123,10 +123,11 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putBoolean(key: String, value: Boolean) {
+    actual fun putBoolean(key: String, value: Boolean): PrefessorEditor {
         pending.add {
             storage.setItem(key, value.toString())
         }
+        return this
     }
 
     /**
@@ -134,10 +135,11 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putFloat(key: String, value: Float) {
+    actual fun putFloat(key: String, value: Float): PrefessorEditor {
         pending.add {
             storage.setItem(key, value.toString())
         }
+        return this
     }
 
     /**
@@ -145,10 +147,11 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putInt(key: String, value: Int) {
+    actual fun putInt(key: String, value: Int): PrefessorEditor {
         pending.add {
             storage.setItem(key, value.toString())
         }
+        return this
     }
 
     /**
@@ -156,10 +159,11 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putLong(key: String, value: Long) {
+    actual fun putLong(key: String, value: Long): PrefessorEditor {
         pending.add {
             storage.setItem(key, value.toString())
         }
+        return this
     }
 
     /**
@@ -167,10 +171,11 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putString(key: String, value: String) {
+    actual fun putString(key: String, value: String): PrefessorEditor {
         pending.add {
             storage.setItem(key, value)
         }
+        return this
     }
 
     /**
@@ -178,10 +183,11 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * which will be done in the actual preferences once [apply()][apply] is called.
      * @param key The name of the preference to remove.
      */
-    actual fun remove(key: String) {
+    actual fun remove(key: String): PrefessorEditor {
         pending.add {
             storage.removeItem(key)
         }
+        return this
     }
 
     /**
@@ -190,8 +196,9 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * Note that when committing back to the preferences, the clear is done first,
      * regardless of whether you called clear before or after put methods on this editor.
      */
-    actual fun clear() {
+    actual fun clear(): PrefessorEditor {
         clear = true
+        return this
     }
 
     /**

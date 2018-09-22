@@ -83,47 +83,47 @@ expect class PrefessorEditor {
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    fun putBoolean(key: String, value: Boolean)
+    fun putBoolean(key: String, value: Boolean): PrefessorEditor
 
     /**
      * Set a float value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    fun putFloat(key: String, value: Float)
+    fun putFloat(key: String, value: Float): PrefessorEditor
 
     /**
      * Set an int value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    fun putInt(key: String, value: Int)
+    fun putInt(key: String, value: Int): PrefessorEditor
 
     /**
      * Set a long value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    fun putLong(key: String, value: Long)
+    fun putLong(key: String, value: Long): PrefessorEditor
 
     /**
      * Set a string value in the preferences editor, to be written back once [apply()][apply] are called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    fun putString(key: String, value: String)
+    fun putString(key: String, value: String): PrefessorEditor
 
     /**
      * Mark in the editor that a preference value should be removed, which will be done in the actual preferences once [apply()][apply] is called.
      * @param key The name of the preference to remove.
      */
-    fun remove(key: String)
+    fun remove(key: String): PrefessorEditor
 
     /**
      * Mark in the editor to remove all values from the preferences. Once commit is called, the only remaining preferences will be any that you have defined in this editor.
      * Note that when committing back to the preferences, the clear is done first, regardless of whether you called clear before or after put methods on this editor.
      */
-    fun clear()
+    fun clear(): PrefessorEditor
 
     /**
      * Commit your preferences changes back from this [PrefessorEditor] to the [Prefessor] object it is editing.
