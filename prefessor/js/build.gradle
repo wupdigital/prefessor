@@ -1,5 +1,6 @@
 apply plugin: 'kotlin-platform-js'
 apply plugin: 'com.moowork.node'
+apply plugin: 'org.jetbrains.dokka'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
@@ -54,12 +55,21 @@ repositories.whenObjectAdded {
     }
 }
 
+dokka {
+    kotlinTasks {
+        compileKotlin2Js
+    }
+    impliedPlatforms = ["JS"]
+    outputDirectory = "$buildDir/docs/javadoc"
+}
+
+task javadocJar(type: Jar, dependsOn: dokka) {
+    classifier = 'javadoc'
+    from dokka.outputDirectory
+}
+
 task sourcesJar(type: Jar) {
     classifier = 'sources'
 
-    from sourceSets.main.allSource
-}
-
-artifacts {
-    archives sourcesJar
+    from sourceSets.main.allSource.srcDirs
 }

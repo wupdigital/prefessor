@@ -68,7 +68,7 @@ tasks.matching { it instanceof Test }.all {
 }
 
 dokka {
-    outputFormat = 'javadoc'
+    impliedPlatforms = ["Android"]
     outputDirectory = "$buildDir/docs/javadoc"
 }
 
@@ -80,9 +80,4 @@ task javadocJar(type: Jar, dependsOn: dokka) {
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.kotlin.srcDirs
     classifier = 'sources'
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
 }
