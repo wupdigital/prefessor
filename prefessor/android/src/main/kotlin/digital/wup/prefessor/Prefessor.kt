@@ -3,6 +3,7 @@ package digital.wup.prefessor
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import digital.wup.prefessor.internal.ContextProvider
 
 actual class Prefessor private constructor(private val sharedPreferences: SharedPreferences) {
 

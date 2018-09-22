@@ -1,8 +1,11 @@
-package digital.wup.prefessor
+package digital.wup.prefessor.internal
 
 import android.content.Context
 import android.support.annotation.RestrictTo
 
+/**
+ * @hide
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 sealed class ContextProvider {
     companion object {

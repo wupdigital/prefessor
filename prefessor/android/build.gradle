@@ -70,6 +70,12 @@ tasks.matching { it instanceof Test }.all {
 dokka {
     impliedPlatforms = ["Android"]
     outputDirectory = "$buildDir/docs/javadoc"
+
+    // Suppress innternal package
+    packageOptions {
+        prefix = "digital.wup.prefessor.internal"
+        suppress = true
+    }
 }
 
 task javadocJar(type: Jar, dependsOn: dokka) {

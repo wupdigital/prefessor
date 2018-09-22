@@ -3,8 +3,8 @@
 
     <application>
         <provider
-            android:name="digital.wup.prefessor.ContextContentProvider"
-            android:authorities="digital.wup.prefessor.ContextContentProvider"
+            android:name="digital.wup.prefessor.internal.ContextContentProvider"
+            android:authorities="digital.wup.prefessor.internal.ContextContentProvider"
             android:exported="false" />
     </application>
 

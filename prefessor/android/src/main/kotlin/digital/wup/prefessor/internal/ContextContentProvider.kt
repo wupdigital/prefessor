@@ -1,4 +1,4 @@
-package digital.wup.prefessor
+package digital.wup.prefessor.internal
 
 import android.content.ContentProvider
 import android.content.ContentValues
@@ -7,6 +7,9 @@ import android.database.Cursor
 import android.net.Uri
 import android.support.annotation.RestrictTo
 
+/**
+ * @hide
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 class ContextContentProvider : ContentProvider() {
 
