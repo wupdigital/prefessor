@@ -6,8 +6,8 @@ buildscript {
         dokka_version = '0.9.17'
         gradle_bintray_plugin_version = '1.8.4'
         gradle_node_version = '1.2.0'
-        kotlin_version = '1.2.61'
-        kotlin_native_version = '0.9'
+        kotlin_version = '1.2.70'
+        kotlin_native_version = '0.9.1'
         node_version = '10.7.0'
     }
 
