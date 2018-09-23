@@ -3,9 +3,26 @@ apply plugin: 'io.gitlab.arturbosch.detekt'
 detekt {
     version = project.detekt_version
     defaultProfile {
-        input = file("src/main/kotlin")
+        input = "$projectDir/src/main/kotlin"
         filters = ".*/resources/.*,.*/build/.*"
+        config = "$rootProject.projectDir/detekt-config.yml"
     }
+
+    String userHome = System.getProperty("user.home")
+
+    detekt {
+        idea {
+            path = "/Users/bvarga/Library/Application Support/JetBrains/Toolbox/apps/IDEA-U/ch-0/183.2407.10/IntelliJ IDEA 2018.3 EAP.app/Contents/"
+            codeStyleScheme = "$userHome/.idea/idea-code-style.xml"
+            inspectionsProfile = "$userHome/.idea/inspect.xml"
+            report = "$project.buildDir/reports"
+            mask = "*.kt"
+        }
+    }
+}
+
+dependencies {
+    detekt "io.gitlab.arturbosch.detekt:detekt-formatting:$project.detekt_version"
 }
 
 afterEvaluate {
