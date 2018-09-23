@@ -1,7 +1,7 @@
 package digital.wup.prefessor
 
-import platform.Foundation.NSUserDefaults
 import kotlin.collections.mutableListOf
+import platform.Foundation.NSUserDefaults
 
 /**
  * Class for accessing and modifying preference data. For any particular set of preferences,
