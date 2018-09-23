@@ -41,7 +41,7 @@ def isRelease() {
 
 allprojects {
     group 'digital.wup.prefessor'
-    version '0.1.0-SNAPSHOT'
+    version '0.1.0'
 
     apply plugin: 'idea'
 
