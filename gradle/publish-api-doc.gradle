@@ -1,0 +1,23 @@
+apply plugin: 'org.ajoberstar.git-publish'
+
+gitPublish {
+    repoUri = "https://github.com/wupdigital/prefessor.git"
+    branch = 'gh-pages'
+
+    repoDir = file("$rootProject.buildDir/gitPublish")
+
+    contents {
+        into "${project.version}"
+    }
+
+    preserve { include '**/*' }
+
+    commitMessage = "Publish javadoc for Prefessor ${project.version}".toString()
+}
+
+configure(project(':prefessor').subprojects) {
+    afterEvaluate {
+        gitPublish.contents.from it.dokka.outputDirectory
+        gitPublishCommit.dependsOn dokka
+    }
+}

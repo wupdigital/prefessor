@@ -23,7 +23,9 @@ dokka {
     outputDirectory = "$buildDir/docs/javadoc"
 }
 
-afterEvaluate {
-    javadocJarMain.dependsOn dokka
-    javadocJarMain.from dokka.outputDirectory
+tasks.withType(Jar) {
+    if (it.name == 'javadocJarMain') {
+        it.dependsOn dokka
+        it.from dokka.outputDirectory
+    }
 }

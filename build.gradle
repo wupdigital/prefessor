@@ -5,6 +5,7 @@ buildscript {
         detekt_version = '1.0.0.RC8'
         dokka_version = '0.9.17'
         gradle_bintray_plugin_version = '1.8.4'
+        gradle_git_publish_version = '1.0.1'
         gradle_node_version = '1.2.0'
         kotlin_version = '1.2.70'
         kotlin_native_version = '0.9.1'
@@ -25,6 +26,7 @@ buildscript {
         classpath "com.moowork.gradle:gradle-node-plugin:$gradle_node_version"
         classpath "digital.wup:android-maven-publish:$android_maven_publish_version"
         classpath "gradle.plugin.io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
+        classpath "org.ajoberstar:gradle-git-publish:$gradle_git_publish_version"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:$kotlin_native_version"
@@ -44,9 +46,10 @@ allprojects {
     }
 }
 
-
 configure(project(':prefessor').subprojects) {
     apply from: "$rootDir/gradle/detekt.gradle"
     apply from: "$rootDir/gradle/maven-publish.gradle"
     apply from: "$rootDir/gradle/bintray-upload.gradle"
 }
+
+apply from: "$rootDir/gradle/publish-api-doc.gradle"
