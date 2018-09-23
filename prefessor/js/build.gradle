@@ -17,8 +17,6 @@ dependencies {
             moduleKind = 'commonjs'
         }
     }
-
-    it.dependsOn npmInstall
 }
 
 task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
@@ -36,7 +34,17 @@ node {
     download = true
 }
 
-task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModules]) {
+task installMocha(type: NpmTask) {
+    args = ['install', 'mocha@~5.2.0', '--save-dev']
+}
+
+task installMockLocalStorage(type: NpmTask) {
+    args = ['install', 'mock-local-storage@~1.0.5', '--save-dev']
+}
+
+task installDependencies(dependsOn: [installMocha, installMockLocalStorage])
+
+task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModules, installDependencies]) {
     group = LifecycleBasePlugin.VERIFICATION_GROUP
     script = file('node_modules/mocha/bin/mocha')
     args = [compileTestKotlin2Js.outputFile]
