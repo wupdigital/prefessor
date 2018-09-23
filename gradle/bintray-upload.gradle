@@ -6,7 +6,7 @@ bintray {
     override = true // for multi-platform Kotlin/Native publishing
     publications = ['prefessor']
     dryRun = false
-    publish = true
+    publish = false
 
     pkg {
         userOrg = 'wupdigital'
@@ -58,3 +58,5 @@ bintrayUpload.doFirst {
         it
     }
 }
+
+bintrayUpload.enabled = isRelease()

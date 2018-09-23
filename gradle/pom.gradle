@@ -1,7 +1,3 @@
-def isRelease() {
-    !project.version.endsWith('-SNAPSHOT')
-}
-
 def scmTag() {
     isRelease() ? project.version : 'master'
 }

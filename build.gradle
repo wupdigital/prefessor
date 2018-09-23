@@ -35,6 +35,10 @@ buildscript {
     }
 }
 
+def isRelease() {
+    !project.version.endsWith('-SNAPSHOT')
+}
+
 allprojects {
     group 'digital.wup.prefessor'
     version '0.1.0-SNAPSHOT'
@@ -60,3 +64,10 @@ configure(subprojects) {
 
 apply from: "$rootDir/gradle/publish-api-doc.gradle"
 apply from: "$rootDir/gradle/sonarqube.gradle"
+
+task deploy(dependsOn: [gitPublishCommit, bintrayUpload]) {
+    group = 'publishin'
+    doLast {
+        println 'Release has published'
+    }
+}
