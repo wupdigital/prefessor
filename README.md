@@ -11,7 +11,7 @@ Prefessor supports `Boolean`, `Float`, `Int`, `Long` and `String` preference typ
 
 ## Usage
 
-Use these dependencies on your platform projects:
+Use following dependencies on your platform projects:
 
 ```
 // On common projects
