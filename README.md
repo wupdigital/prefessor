@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/wupdigital/prefessor.svg?branch=master)](https://travis-ci.org/wupdigital/prefessor)
 [![Sonar Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=digital.wup.prefessor%3Aprefessor-root&metric=alert_status)](https://sonarcloud.io/dashboard?id=digital.wup.prefessor:prefessor-root)
 
-Prefessor is a multiplatform preference library. Supports Android, iOS, Js and MacOS platforms. Under the hood all implementation it use the platform default preference managers.
+Prefessor is a multiplatform preference library. Supports Android, iOS, Js and MacOS platforms. Under the hood all implementation use the platform default preference managers.
 It uses [SharedPreferences](https://developer.android.com/reference/android/content/SharedPreferences) on Android,
 [UserDefaults](https://developer.apple.com/documentation/foundation/userdefaults) on iOS and MacOs and [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) on Js.
 
@@ -15,14 +15,20 @@ Prefessor supports `Boolean`, `Float`, `Int`, `Long` and `String` preference typ
 Use following dependencies on your platform projects:
 
 ```
-// On common projects
-implementation 'digital.wup.prefessor:prefessor-common:0.1.0'
-// On Android projects
-implementation 'digital.wup.prefessor:prefessor-android:0.1.0'
-// On iOS or MacOs projects
-implementation 'digital.wup.prefessor:prefessor-apple:0.1.0'
-// On Js projects
-implementation 'digital.wup.prefessor:prefessor-js:0.1.0'
+repositories {
+    jcenter()
+}
+
+dependencies {
+    // On common projects
+    implementation 'digital.wup.prefessor:prefessor-common:0.1.0'
+    // On Android projects
+    implementation 'digital.wup.prefessor:prefessor-android:0.1.0'
+    // On iOS or MacOs projects
+    implementation 'digital.wup.prefessor:prefessor-apple:0.1.0'
+    // On Js projects
+    implementation 'digital.wup.prefessor:prefessor-js:0.1.0'
+}
 ```
 
 ### Save values
