@@ -1,5 +1,11 @@
 rootProject.name = 'prefessor-root'
 
-include ':prefessor:common', ':prefessor:android', ':prefessor:apple', ':prefessor:js'
-
 enableFeaturePreview('GRADLE_METADATA')
+
+include ':prefessor-common', ':prefessor-android', ':prefessor-apple', ':prefessor-js'
+
+project(':prefessor-common').projectDir = file('./prefessor/common')
+project(':prefessor-android').projectDir = file('./prefessor/android')
+project(':prefessor-apple').projectDir = file('./prefessor/apple')
+project(':prefessor-js').projectDir = file('./prefessor/js')
+

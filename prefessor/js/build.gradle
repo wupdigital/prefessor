@@ -4,7 +4,7 @@ apply plugin: 'org.jetbrains.dokka'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    expectedBy project(":prefessor:common")
+    expectedBy project(":prefessor-common")
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 

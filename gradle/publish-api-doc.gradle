@@ -15,7 +15,7 @@ gitPublish {
     commitMessage = "Publish javadoc for Prefessor ${project.version}".toString()
 }
 
-configure(project(':prefessor').subprojects) {
+configure(subprojects) {
     afterEvaluate {
         gitPublish.contents.from it.dokka.outputDirectory
         gitPublishCopy.dependsOn it.dokka

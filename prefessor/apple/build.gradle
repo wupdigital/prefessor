@@ -9,7 +9,7 @@ sourceSets.main {
 }
 
 dependencies {
-    expectedBy project(":prefessor:common")
+    expectedBy project(":prefessor-common")
 }
 
 dokka {

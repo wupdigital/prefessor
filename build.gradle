@@ -50,7 +50,7 @@ task clean(type: Delete) {
     delete buildDir
 }
 
-configure(project(':prefessor').subprojects) {
+configure(subprojects) {
     apply from: "$rootDir/gradle/detekt.gradle"
     apply from: "$rootDir/gradle/maven-publish.gradle"
     apply from: "$rootDir/gradle/bintray-upload.gradle"
