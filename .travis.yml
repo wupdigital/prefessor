@@ -36,4 +36,5 @@ env:
 - ANDROID_HOME=$HOME/android-sdk
 
 script:
-- ./gradlew clean build
+- ./gradlew clean build sonarqube -Dsonar.login=$SONAR_API_KEY  -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=wupdigital
+

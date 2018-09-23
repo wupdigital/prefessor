@@ -10,6 +10,7 @@ buildscript {
         kotlin_version = '1.2.70'
         kotlin_native_version = '0.9.1'
         node_version = '10.7.0'
+        sonarqube_version = '2.6.2'
     }
 
     repositories {
@@ -30,6 +31,7 @@ buildscript {
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:$kotlin_native_version"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$sonarqube_version"
     }
 }
 
@@ -57,3 +59,4 @@ configure(subprojects) {
 }
 
 apply from: "$rootDir/gradle/publish-api-doc.gradle"
+apply from: "$rootDir/gradle/sonarqube.gradle"

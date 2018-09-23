@@ -1,6 +1,7 @@
 # Prefessor
 
 [![Build Status](https://travis-ci.org/wupdigital/prefessor.svg?branch=master)](https://travis-ci.org/wupdigital/prefessor)
+[![Sonar Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=digital.wup.prefessor%3Aprefessor-root&metric=alert_status)](https://sonarcloud.io/dashboard?id=digital.wup.prefessor:prefessor-root)
 
 Prefessor is a multiplatform preference library. Supports Android, iOS, Js and MacOS platforms. Under the hood all implementation it use the platform default preference managers.
 It uses [SharedPreferences](https://developer.android.com/reference/android/content/SharedPreferences) on Android,
