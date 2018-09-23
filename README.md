@@ -56,7 +56,7 @@ val stringValue = prefessor.getString("stringKey", "defaultValue")
 val prefessor = Prefessor.create()
 
 prefessor.edit {
-    // remove value on key
+    // remove a value on key
     remove("booleanKey")
     // remove all value
     clear()
@@ -64,7 +64,7 @@ prefessor.edit {
 ```
 
 ## Known issues
-* Do not throw `ClassCastException` on Js platform, when we try get a incompatible type from `Prefessor`. For example we save value as `Boolean` and try to get as `String`.
+* It does not throw `ClassCastException` on Js platform, when we will try to get an incompatible type from `Prefessor`. For example: When we save value as `Boolean` and try to get as `String`.
 
 ## License
 
