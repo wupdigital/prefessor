@@ -5,20 +5,45 @@ bintray {
     key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
     override = true // for multi-platform Kotlin/Native publishing
     publications = ['prefessor']
+    dryRun = false
+    publish = true
+
     pkg {
-        userOrg = 'wup-digital'
-        repo = 'prefessor'
-        name = 'digital.wup.prefessor'
+        userOrg = 'wupdigital'
+        repo = 'wup-digital-maven'
+        name = project.name
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/wupdigital/prefessor'
         websiteUrl = 'https://github.com/wupdigital/prefessor'
         issueTrackerUrl = 'https://github.com/wupdigital/prefessor/issues'
         githubRepo = 'wupdigital/prefessor'
+        githubReleaseNotesFile = 'CHANGELOG.md'
+        labels = [
+                'PreferenceManager',
+                'KeyValueStore',
+                'SharedPreferences',
+                'UserDefaults',
+                'LocalStoreage',
+                'Multiplatform',
+                'Kotlin',
+                'Kotlin/Native',
+                'Kotlin/Multiplatform',
+                'Android',
+                'iOS',
+                'MacOs',
+                'Js',
+                'Preferences'
+        ]
 
         version {
             name = project.version
             vcsTag = project.version
             released = new Date()
+
+            gpg {
+                sign = true
+                passphrase = project.hasProperty('gpgPassphrase') ? project.property('gpgPassphrase') : System.getenv('GPG_PASSPHRASE')
+            }
         }
     }
 }
