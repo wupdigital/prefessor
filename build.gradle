@@ -68,7 +68,7 @@ apply from: "$rootDir/gradle/publish-api-doc.gradle"
 apply from: "$rootDir/gradle/sonarqube.gradle"
 
 task deploy(dependsOn: [gitPublishCommit, bintrayUpload]) {
-    group = 'publishin'
+    group = 'publishing'
     doLast {
         println 'Release has published'
     }
