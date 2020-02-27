@@ -51,7 +51,6 @@ actual class Prefessor private constructor(private val storage: Storage = localS
      */
     actual fun getFloat(key: String, defValue: Float): Float {
         return storage.getItem(key)?.toFloat() ?: defValue
-
     }
 
     /**
