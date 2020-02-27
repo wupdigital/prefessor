@@ -4,7 +4,7 @@ buildscript {
         android_maven_publish_version = '3.6.2'
         detekt_version = '1.0.0.RC8'
         dokka_version = '0.9.17'
-        gradle_bintray_plugin_version = '1.8.4'
+        gradle_bintray_plugin_version = '1.8.4-jetbrains-3'
         gradle_git_publish_version = '1.0.1'
         gradle_node_version = '1.2.0'
         kotlin_version = '1.2.70'
