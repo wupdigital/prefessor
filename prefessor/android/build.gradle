@@ -9,6 +9,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
+        targetSdkVersion 27
 
         // Specifies the fully-qualified class name of the test instrumentation runner.
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
