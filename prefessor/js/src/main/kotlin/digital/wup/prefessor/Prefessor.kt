@@ -40,11 +40,7 @@ actual class Prefessor private constructor(private val storage: Storage = localS
      * @return Returns the preference value if it exists, or defValue.
      */
     actual fun getBoolean(key: String, defValue: Boolean): Boolean {
-        return storage.getItem(key)?.let {
-            it.toBoolean()
-        } ?: run {
-            defValue
-        }
+        return storage.getItem(key)?.toBoolean() ?: defValue
     }
 
     /**
@@ -54,11 +50,8 @@ actual class Prefessor private constructor(private val storage: Storage = localS
      * @return Returns the preference value if it exists, or defValue.
      */
     actual fun getFloat(key: String, defValue: Float): Float {
-        return storage.getItem(key)?.let {
-            it.toFloat()
-        } ?: run {
-            defValue
-        }
+        return storage.getItem(key)?.toFloat() ?: defValue
+
     }
 
     /**
@@ -68,11 +61,7 @@ actual class Prefessor private constructor(private val storage: Storage = localS
      * @return Returns the preference value if it exists, or defValue.
      */
     actual fun getInt(key: String, defValue: Int): Int {
-        return storage.getItem(key)?.let {
-            it.toInt()
-        } ?: run {
-            defValue
-        }
+        return storage.getItem(key)?.toInt() ?: defValue
     }
 
     /**
@@ -82,9 +71,7 @@ actual class Prefessor private constructor(private val storage: Storage = localS
      * @return Returns the preference value if it exists, or defValue.
      */
     actual fun getLong(key: String, defValue: Long): Long {
-        return storage.getItem(key)?.let {
-            it.toLong()
-        } ?: run {
+        return storage.getItem(key)?.toLong() ?: run {
             defValue
         }
     }
@@ -94,7 +81,7 @@ actual class Prefessor private constructor(private val storage: Storage = localS
      * @param defValue Value to return if this preference does not exist.
      * @param key The name of the preference to retrieve.
      */
-    actual fun getString(key: String, defValue: String): String {
+    actual fun getString(key: String, defValue: String?): String? {
         return storage.getItem(key) ?: defValue
     }
 
@@ -171,9 +158,13 @@ actual class PrefessorEditor internal constructor(private val storage: Storage) 
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putString(key: String, value: String): PrefessorEditor {
+    actual fun putString(key: String, value: String?): PrefessorEditor {
         pending.add {
-            storage.setItem(key, value)
+            if (value == null) {
+                storage.removeItem(key)
+            } else {
+                storage.setItem(key, value)
+            }
         }
         return this
     }

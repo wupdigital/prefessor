@@ -77,7 +77,7 @@ actual class Prefessor private constructor(private val userDefaults: NSUserDefau
      * @param defValue Value to return if this preference does not exist.
      * @param key The name of the preference to retrieve.
      */
-    actual fun getString(key: String, defValue: String): String {
+    actual fun getString(key: String, defValue: String?): String? {
         return userDefaults.objectForKey(key) as String? ?: defValue
     }
 
@@ -99,6 +99,7 @@ actual class Prefessor private constructor(private val userDefaults: NSUserDefau
 actual class PrefessorEditor internal constructor(private val userDefaults: NSUserDefaults) {
 
     private val pending = mutableListOf<() -> Unit>()
+
     @kotlin.native.ThreadLocal
     private var clear = false
 
@@ -151,11 +152,11 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
     }
 
     /**
-     * Set a string value in the preferences editor, to be written back once [apply()][apply] are called.
+     * Set a string value in the preferences editor, to be written back once [apply()][apply] is called.
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putString(key: String, value: String): PrefessorEditor {
+    actual fun putString(key: String, value: String?): PrefessorEditor {
         pending.add {
             userDefaults.setObject(value, key)
         }
@@ -163,7 +164,7 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
     }
 
     /**
-     * Mark in the editor that a preference value should be removed, which will be done in the actual preferences once {@link #commit()} is called.
+     * Mark in the editor that a preference value should be removed, which will be done in the actual preferences once [apply()][apply] is called.
      * @param key The name of the preference to remove.
      */
     actual fun remove(key: String): PrefessorEditor {
@@ -174,7 +175,7 @@ actual class PrefessorEditor internal constructor(private val userDefaults: NSUs
     }
 
     /**
-     * Mark in the editor to remove all values from the preferences. Once commit is called, the only remaining preferences will be any that you have defined in this editor.
+     * Mark in the editor to remove all values from the preferences. Once apply is called, the only remaining preferences will be any that you have defined in this editor.
      * Note that when committing back to the preferences, the clear is done first, regardless of whether you called clear before or after put methods on this editor.
      */
     actual fun clear(): PrefessorEditor {

@@ -104,7 +104,7 @@ actual class Prefessor private constructor(private val sharedPreferences: Shared
      * @param defValue Value to return if this preference does not exist.
      * @param key The name of the preference to retrieve.
      */
-    actual fun getString(key: String, defValue: String): String {
+    actual fun getString(key: String, defValue: String?): String? {
         return sharedPreferences.getString(key, defValue)
     }
 }
@@ -161,7 +161,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    actual fun putString(key: String, value: String): PrefessorEditor {
+    actual fun putString(key: String, value: String?): PrefessorEditor {
         editor.putString(key, value)
         return this
     }
@@ -176,7 +176,7 @@ actual class PrefessorEditor internal constructor(private val editor: SharedPref
     }
 
     /**
-     * Mark in the editor to remove all values from the preferences. Once commit is called, the only remaining preferences will be any that you have defined in this editor.
+     * Mark in the editor to remove all values from the preferences. Once apply is called, the only remaining preferences will be any that you have defined in this editor.
      * Note that when committing back to the preferences, the clear is done first, regardless of whether you called clear before or after put methods on this editor.
      */
     actual fun clear(): PrefessorEditor {

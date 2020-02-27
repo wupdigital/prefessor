@@ -61,7 +61,7 @@ expect class Prefessor {
      * @param defValue Value to return if this preference does not exist.
      * @param key The name of the preference to retrieve.
      */
-    fun getString(key: String, defValue: String): String
+    fun getString(key: String, defValue: String? = null): String?
 
     /**
      * Create a new [PrefessorEditor] for these preferences,
@@ -111,7 +111,7 @@ expect class PrefessorEditor {
      * @param key The name of the preference to modify.
      * @param value The new value for the preference.
      */
-    fun putString(key: String, value: String): PrefessorEditor
+    fun putString(key: String, value: String?): PrefessorEditor
 
     /**
      * Mark in the editor that a preference value should be removed, which will be done in the actual preferences once [apply()][apply] is called.
@@ -120,7 +120,7 @@ expect class PrefessorEditor {
     fun remove(key: String): PrefessorEditor
 
     /**
-     * Mark in the editor to remove all values from the preferences. Once commit is called, the only remaining preferences will be any that you have defined in this editor.
+     * Mark in the editor to remove all values from the preferences. Once apply is called, the only remaining preferences will be any that you have defined in this editor.
      * Note that when committing back to the preferences, the clear is done first, regardless of whether you called clear before or after put methods on this editor.
      */
     fun clear(): PrefessorEditor
