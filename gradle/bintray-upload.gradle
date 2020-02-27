@@ -11,7 +11,8 @@ bintray {
     pkg {
         userOrg = 'wupdigital'
         repo = 'wup-digital-maven'
-        name = project.name
+        name = 'digital.wup.prefessor'
+        desc = 'Prefessor is a multiplatform preference manager library. Supports Android, iOS, Js and MacOS platforms.'
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/wupdigital/prefessor'
         websiteUrl = 'https://github.com/wupdigital/prefessor'
