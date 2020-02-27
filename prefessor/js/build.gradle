@@ -1,6 +1,5 @@
 apply plugin: 'kotlin-platform-js'
 apply plugin: 'com.moowork.node'
-apply plugin: 'org.jetbrains.dokka'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
@@ -55,25 +54,12 @@ test.dependsOn runMocha
 // Workaround the problem with Node downloading:
 // Konan plugin uses Gradle-metadata feature which is not compatible
 // with node plugin download implementation
-repositories.whenObjectAdded {
+repositories.whenObjectAdded { IvyArtifactRepository it ->
     if (it instanceof IvyArtifactRepository) {
         metadataSources {
             artifact()
         }
     }
-}
-
-dokka {
-    kotlinTasks {
-        compileKotlin2Js
-    }
-    impliedPlatforms = ["JS"]
-    outputDirectory = "$buildDir/docs/javadoc"
-}
-
-task javadocJar(type: Jar, dependsOn: dokka) {
-    classifier = 'javadoc'
-    from dokka.outputDirectory
 }
 
 task sourcesJar(type: Jar) {

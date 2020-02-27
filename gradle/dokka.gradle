@@ -1,0 +1,43 @@
+if (project.name.endsWith("-android")) {
+    apply plugin: 'org.jetbrains.dokka-android'
+} else {
+    apply plugin: 'org.jetbrains.dokka'
+}
+
+dokka {
+
+    kotlinTasks {
+        // Must be set a task to avoid KotlinNullPointerException
+        // defaultKotlinTasks() is not working, because native compile tasks were not inherited from AbstractKotlinCompile
+        kotlinCompileTask()
+    }
+
+    sourceRoot {
+        path = "$project.projectDir/src/main"
+    }
+
+    outputDirectory = "$buildDir/docs/javadoc"
+
+    // Suppress internal package
+    packageOptions {
+        prefix = "digital.wup.prefessor.internal"
+        suppress = true
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: dokka) {
+    classifier = 'javadoc'
+    from dokka.outputDirectory
+}
+
+Task kotlinCompileTask() {
+    if (project.name.endsWith("-android")) {
+        return compileReleaseKotlin
+    } else if (project.name.endsWith("-common")) {
+        return compileKotlinCommon
+    } else if (project.name.endsWith("-js")) {
+        return compileKotlin2Js
+    } else {
+        return compileDebugMacos_x64KotlinNative
+    }
+}

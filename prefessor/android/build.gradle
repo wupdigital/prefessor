@@ -1,16 +1,5 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:${dokka_version}"
-    }
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-platform-android'
-apply plugin: 'org.jetbrains.dokka-android'
 
 def compile_sdk_version = 27
 
@@ -65,22 +54,6 @@ tasks.matching { it instanceof Test }.all {
         showCauses true
         showStackTraces true
     }
-}
-
-dokka {
-    impliedPlatforms = ["Android"]
-    outputDirectory = "$buildDir/docs/javadoc"
-
-    // Suppress innternal package
-    packageOptions {
-        prefix = "digital.wup.prefessor.internal"
-        suppress = true
-    }
-}
-
-task javadocJar(type: Jar, dependsOn: dokka) {
-    classifier = 'javadoc'
-    from dokka.outputDirectory
 }
 
 task sourcesJar(type: Jar) {

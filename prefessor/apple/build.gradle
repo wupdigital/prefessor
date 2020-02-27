@@ -1,5 +1,4 @@
 apply plugin: 'kotlin-platform-native'
-apply plugin: 'org.jetbrains.dokka'
 
 sourceSets.main {
     component {
@@ -10,17 +9,6 @@ sourceSets.main {
 
 dependencies {
     expectedBy project(":prefessor-common")
-}
-
-dokka {
-    kotlinTasks {
-        compileDebugMacos_x64KotlinNative
-    }
-
-    sourceDirs = files('src/main/kotlin')
-
-    impliedPlatforms = ["iOS", "MacOS"]
-    outputDirectory = "$buildDir/docs/javadoc"
 }
 
 tasks.withType(Jar) {

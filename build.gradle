@@ -28,6 +28,7 @@ buildscript {
         classpath "digital.wup:android-maven-publish:$android_maven_publish_version"
         classpath "gradle.plugin.io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
         classpath "org.ajoberstar:gradle-git-publish:$gradle_git_publish_version"
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:${dokka_version}"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:$kotlin_native_version"
@@ -58,6 +59,7 @@ task clean(type: Delete) {
 
 configure(subprojects) {
     apply from: "$rootDir/gradle/detekt.gradle"
+    apply from: "$rootDir/gradle/dokka.gradle"
     apply from: "$rootDir/gradle/maven-publish.gradle"
     apply from: "$rootDir/gradle/bintray-upload.gradle"
 }

@@ -1,23 +1,9 @@
 apply plugin: 'kotlin-platform-common'
-apply plugin: 'org.jetbrains.dokka'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-test-common:$kotlin_version"
-}
-
-dokka {
-    kotlinTasks {
-        compileKotlinCommon
-    }
-    impliedPlatforms = ["ALL"]
-    outputDirectory = "$buildDir/docs/javadoc"
-}
-
-task javadocJar(type: Jar, dependsOn: dokka) {
-    classifier = 'javadoc'
-    from dokka.outputDirectory
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
